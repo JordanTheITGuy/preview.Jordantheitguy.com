@@ -1,0 +1,173 @@
+<!doctype html><html dir=ltr lang=en data-theme=dark><head>
+<title>
+Jordan Benzing
+|
+Adding E-Mail Property in AD
+</title>
+<meta charset=utf-8><meta name=generator content="Hugo 0.92.1"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name=description content="
+      I have no idea what I am doing...
+
+
+    ">
+<link rel=stylesheet href=/css/main.min.c71fbe942a9b51fb96cf0c76b7d4b4b72a909f75b07dae5f35db2c3617422468.css integrity="sha256-xx++lCqbUfuWzwx2t9S0tyqQn3Wwfa5fNdssNhdCJGg=" crossorigin=anonymous type=text/css>
+<link rel=stylesheet href=/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4=" crossorigin=anonymous type=text/css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin=anonymous>
+<link rel="shortcut icon" href=/favicon.ico type=image/x-icon>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=canonical href=http://preview.jordantheitguy.com/post/adding-email-property-in-ad/>
+<script type=text/javascript src=/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus=" crossorigin=anonymous></script>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Adding E-Mail Property in AD">
+<meta name=twitter:description content="I have no idea what I am doing...">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"post","name":"Adding E-Mail Property in AD","headline":"Adding E-Mail Property in AD","alternativeHeadline":"","description":"
+      I have no idea what I am doing...
+
+
+    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/post\/adding-email-property-in-ad\/"},"author":{"@type":"Person","name":"Jordan Benzing"},"creator":{"@type":"Person","name":"Jordan Benzing"},"accountablePerson":{"@type":"Person","name":"Jordan Benzing"},"copyrightHolder":{"@type":"Person","name":"Jordan Benzing"},"copyrightYear":"2016","dateCreated":"2016-02-11T00:00:00.00Z","datePublished":"2016-02-11T00:00:00.00Z","dateModified":"2016-02-11T00:00:00.00Z","publisher":{"@type":"Organization","name":"Jordan Benzing","url":"http://preview.jordantheitguy.com/","logo":{"@type":"ImageObject","url":"http:\/\/preview.jordantheitguy.com\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"http:\/\/preview.jordantheitguy.com\/post\/adding-email-property-in-ad\/","wordCount":"271","genre":[],"keywords":[]}</script>
+</head>
+<body>
+<header><div class="page-top
+animated fadeInDown">
+<a role=button class=navbar-burger data-target=navMenu aria-label=menu aria-expanded=false>
+<span aria-hidden=true></span>
+<span aria-hidden=true></span>
+<span aria-hidden=true></span>
+</a>
+<nav>
+<ul class=nav__list id=navMenu>
+<div class=nav__links>
+<li>
+<a href=/ title>Home</a>
+</li>
+<li>
+<a href=/post/ title>Posts</a>
+</li>
+<li>
+<a href=/about/ title>About</a>
+</li>
+</div>
+<ul>
+<li>
+<a class=theme-switch title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</li>
+</ul>
+</ul>
+</nav>
+</div>
+</header>
+<div class=wrapper>
+<aside><div class="sidebar
+animated fadeInDown">
+<div class=sidebar__content>
+<div class=logo-title>
+<div class=title>
+<img src=/images/JordanTheITGuy.png alt="profile picture">
+<h3 title><a href=/>I'm JordanTheITGuy</a></h3>
+<div class=description>
+<p>I currently work as an Engineer at Patch My PC.<br></p>
+</div>
+</div>
+</div>
+<ul class=social-links>
+<li>
+<a href=https://twitter.com/JordanTheITguy rel=me aria-label=Twitter title=Twitter>
+<i class="fab fa-twitter fa-2x" aria-hidden=true></i>
+</a>
+</li>
+<li>
+<a href=https://github.com/JordanTheITGuy rel=me aria-label=Github title=Github>
+<i class="fab fa-github fa-2x" aria-hidden=true></i>
+</a>
+</li>
+<li>
+<a href=https://www.youtube.com/c/JordanTheItGuy rel=me aria-label=Youtube title=Youtube>
+<i class="fab fa-youtube fa-2x" aria-hidden=true></i>
+</a>
+</li>
+<li>
+<a href=https://www.linkedin.com/in/jordan-benzing-432b0619/ rel=me aria-label=Linkedin title=Linkedin>
+<i class="fab fa-linkedin fa-2x" aria-hidden=true></i>
+</a>
+</li>
+</ul>
+</div><footer class="footer footer--sidebar">
+<div class=by_farbox>
+<ul class=footer__list>
+<li class=footer__item>
+&copy;
+Jordan Benzing
+2022
+</li>
+</ul>
+</div>
+</footer>
+<script type=text/javascript src=/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I=" crossorigin=anonymous></script></div>
+</aside>
+<main>
+<div class=autopagerize_page_element>
+<div class=content>
+<div class="post
+animated fadeInDown">
+<div class=post-content>
+<div class=post-title>
+<h1>Adding E-Mail Property in AD</h1>
+<div class=info>
+<em class="fas fa-calendar-day"></em>
+<span class=date>
+Thu, Feb 11, 2016
+</span>
+<em class="fas fa-stopwatch"></em>
+<span class=reading-time>2-minute read</span>
+</div>
+</div><p>A few months back I worked on a project to configure a password manager that was managing accounts across multiple domains without a trust.</p>
+<p>The Problem:
+This password management software was actually pretty cool. It’s able to match user accounts in its secure data base using a particular active directory attribute. In this case the e-mail field. Unfortunately, the users with accounts in both domains didn’t have the same e-mail attribute. In fact the resource domain for production has no e-mail address’s assigned to it almost at all.</p>
+<p>The Solution:
+The solution here was actually a fairly simple set of powershell code that did a few things.</p>
+<p>First, I imported a CSV file using a relationship of UserName and E-MAIL account. (Which I extracted from the primary domain you know the one where they actually HAVE the correct information) . Then using that data I read through all users that exist in the list and if I found the user, then I checked to see if they had an e-mail address. If they did I logged it and didn’t make a change. If they did NOT have an e-mail address I went ahead and gave them the correct e-mail address. It looked something like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 0</span><span style=color:#8be9fd;font-style:italic>$DataPath</span> = <span style=color:#8be9fd;font-style:italic>Read-Host</span> <span style=color:#f1fa8c>&#34;Enter The file name or path here&#34;</span>
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span style=color:#8be9fd;font-style:italic>$AllUserData</span> = <span style=color:#8be9fd;font-style:italic>Import-CSV</span> <span style=color:#8be9fd;font-style:italic>$DataPath</span>
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span><span style=color:#8be9fd;font-style:italic>Import-Module</span> ActiveDirectory
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span style=color:#ff79c6>ForEach</span> (<span style=color:#8be9fd;font-style:italic>$User</span> <span style=color:#ff79c6>in</span> <span style=color:#8be9fd;font-style:italic>$AllUserData</span>){
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span>    <span style=color:#8be9fd;font-style:italic>$UserADObj</span> = <span style=color:#8be9fd;font-style:italic>Get-ADUser</span> -Identity <span style=color:#8be9fd;font-style:italic>$User</span>.username -Properties Mail
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span>    <span style=color:#ff79c6>If</span> (<span style=color:#8be9fd;font-style:italic>$UserADObj</span>.mail){
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span>        <span style=color:#8be9fd;font-style:italic>$Output</span> = <span style=color:#f1fa8c>&#34;User &#34;</span> + <span style=color:#8be9fd;font-style:italic>$User</span>.Username + <span style=color:#f1fa8c>&#34; already has an email set of &#34;</span> + <span style=color:#8be9fd;font-style:italic>$UserADObj</span>.Mail
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span>        <span style=color:#8be9fd;font-style:italic>Add-Content</span> C:\PowershellLogs\EMailAddressErrorLog.txt <span style=color:#8be9fd;font-style:italic>$Output</span>
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span>    }
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span>    <span style=color:#ff79c6>Else</span>{
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span>        <span style=color:#8be9fd;font-style:italic>Set-ADUser</span> <span style=color:#8be9fd;font-style:italic>$User</span>.Username -EmailAddress <span style=color:#8be9fd;font-style:italic>$User</span>.EMailAddress
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span>    }
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12</span>}
+<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13</span> 
+</code></pre></div></div>
+<div class=post-footer>
+<div class=info>
+</div>
+</div>
+<div id=fb_comments_container>
+<h2>comments</h2>
+<script src=https://utteranc.es/client.js repo=JordanTheITGuy/jordantheitguy.com-comments issue-term=title theme=preferred-color-scheme crossorigin=anonymous async></script>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div><footer class="footer footer--base">
+<div class=by_farbox>
+<ul class=footer__list>
+<li class=footer__item>
+&copy;
+Jordan Benzing
+2022
+</li>
+</ul>
+</div>
+</footer>
+<script type=text/javascript src=/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I=" crossorigin=anonymous></script></body>
+</html>
