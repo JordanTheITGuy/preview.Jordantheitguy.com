@@ -2,7 +2,7 @@
 <title>
 Jordan Benzing
 |
-Active Directory
+JordanTheITGuy
 </title>
 <meta charset=utf-8><meta name=generator content="Hugo 0.92.2"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name=description content="
@@ -20,16 +20,17 @@ I'm a Microsoft MVP for EMS.
 <link rel=apple-touch-icon sizes=180x180 href=/favicons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=/favicons/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicons/favicon-16x16.png>
-<link rel=canonical href=http://preview.jordantheitguy.com/categories/active-directory/>
-<link rel=alternate type=application/rss+xml href=/categories/active-directory/index.xml title=JordanTheITGuy>
+<link rel=canonical href=http://preview.jordantheitguy.com/>
+<link rel=alternate type=application/rss+xml href=/index.xml title=JordanTheITGuy>
 <script type=text/javascript src=/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w=" crossorigin=anonymous></script>
 <script type=text/javascript src=/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus=" crossorigin=anonymous></script>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Active Directory">
+<meta name=twitter:title content="JordanTheITGuy">
 <meta name=twitter:description content="I currently work as an Engineer at Patch My PC. 
 I also do some consulting work in the world of IT on the side. 
 I'm a Microsoft MVP for EMS.
 ">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","name":"JordanTheITGuy","url":"http:\/\/preview.jordantheitguy.com\/","description":"I currently work as an Engineer at Patch My PC. \nI also do some consulting work in the world of IT on the side. \nI\u0027m a Microsoft MVP for EMS.\n","thumbnailUrl":"http:\/\/preview.jordantheitguy.com\/","license":""}</script>
 </head>
 <body>
 <header><div class="page-top
@@ -43,7 +44,7 @@ I'm a Microsoft MVP for EMS.
 <ul class=nav__list id=navMenu>
 <div class=nav__links>
 <li>
-<a href=/ title>Home</a>
+<a class=current href=/ title>Home</a>
 </li>
 <li>
 <a href=/post/ title>Posts</a>
@@ -117,22 +118,73 @@ Jordan Benzing
 <main>
 <div class=autopagerize_page_element>
 <div class=content>
-<div class="archive
+<div class="post
 .">
-<ul class=list-with-title>
-<div class=listing-title>2015</div>
-<ul class=listing>
-<div class=listing-item>
-<div class=listing-post>
-<a href=/post/protected-groups-in-active-directory/ title="Protected Groups in Active Directory">Protected Groups in Active Directory</a>
-<div class=post-time>
+<div class="post-title post-content">
+</div>
+</div>
+<div class="post
+.">
+<div class=post-title>
+<h3><a href=/post/client_server_version_error_in_scom_2012r2_visio/>Visio 2010/2013 Client Server Version Error in SCOM 2012R2 Visio Drawings</a></h3>
+</div>
+<div class=post-content>
+<div class=p_part>
+<p>
+The Question:
+Testing Level 2 Testing Level 3 “Wouldn’t it be awesome if we could create pretty Visio Drawings of our systems for the customers to look at and see up-time of servers using SCOM Data?”
+Well turns out in fact you can do this! It’s a feature it’s been around in SCOM for quite some time. However it’s not exactly the best documented component and certainly has a couple of pit fulls, among them the frustrating “Client Not Supported Error”.
+</p>
+<a href=/post/client_server_version_error_in_scom_2012r2_visio/ class=read_more>Read more</a></div>
+</div>
+<div class=post-footer>
+<div class=meta>
+<div class=info>
+<em class="fas fa-calendar-day"></em>
 <span class=date>
-Nov 3
+Wed, Oct 21, 2015
 </span>
 </div>
 </div>
 </div>
-</ul>
+</div>
+<div class="post
+.">
+<div class=post-title>
+<h3><a href=/post/how_to_reset_permissions_on_a_users_home_directory/>How To Reset Permissions on a Users Home Directory</a></h3>
+</div>
+<div class=post-content>
+<div class=p_part>
+<p>
+Below is a script, provided as is, that is a non-fancy way to reset permissions with some sense of logic on a users home directory. I&rsquo;ve got a slightly better version of it, but I want to tweak a few things before posting it online.
+0 1$Folder = Read-Host "Enter the name of the user to reset permissions for" 2#Enter the name of the user directory here 3$Existance = Get-ADUser -LDAPFilter "(SAMAccountName=$Folder)" 4$Path = '\\YOURNETWORKSHAREHERE' 5$Fullpath = $Path …
+</p>
+<a href=/post/how_to_reset_permissions_on_a_users_home_directory/ class=read_more>Read more</a></div>
+</div>
+<div class=post-footer>
+<div class=meta>
+<div class=info>
+<em class="fas fa-calendar-day"></em>
+<span class=date>
+Wed, Jun 24, 2015
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class=pagination>
+<ul class=pagination>
+<li class=page-item>
+<a class=page-link href=/>
+<i class="fa fa-angle-left" aria-label=Previous></i>
+</a>
+</li>
+<li class=page-item>
+<a class=page-link href=/>1</a>
+</li>
+<li class=page-item>
+<span class="page-link current">2</span>
+</li>
 </ul>
 </div>
 </div>

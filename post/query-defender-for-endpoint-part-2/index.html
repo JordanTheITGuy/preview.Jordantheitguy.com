@@ -1,0 +1,211 @@
+<!doctype html><html dir=ltr lang=en data-theme=dark><head>
+<title>
+Jordan Benzing
+|
+Query Defender for Endpoint Part 2
+</title>
+<meta charset=utf-8><meta name=generator content="Hugo 0.92.2"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name=description content="
+      Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled
+
+
+    ">
+<link rel=stylesheet href=/css/main.min.db014ffeb1f9f8d8ca6cf10049b6503179b7cd8b435a5757d85b9c6e880bc638.css integrity="sha256-2wFP/rH5+NjKbPEASbZQMXm3zYtDWldX2FucbogLxjg=" crossorigin=anonymous type=text/css>
+<link rel=stylesheet href=/css/markupHighlight.min.058b31f17db60602cc415fd63b0427e7932fbf35c70d8e341a4c39385f5f6f3e.css integrity="sha256-BYsx8X22BgLMQV/WOwQn55MvvzXHDY40Gkw5OF9fbz4=" crossorigin=anonymous type=text/css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin=anonymous>
+<link rel="shortcut icon" href=/favicons/favicon.ico type=image/x-icon>
+<link rel=apple-touch-icon sizes=180x180 href=/favicons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicons/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicons/favicon-16x16.png>
+<link rel=canonical href=http://preview.jordantheitguy.com/post/query-defender-for-endpoint-part-2/>
+<script type=text/javascript src=/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus=" crossorigin=anonymous></script>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Query Defender for Endpoint Part 2">
+<meta name=twitter:description content="Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"post","name":"Query Defender for Endpoint Part 2","headline":"Query Defender for Endpoint Part 2","alternativeHeadline":"","description":"
+      Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled
+
+
+    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/post\/query-defender-for-endpoint-part-2\/"},"author":{"@type":"Person","name":"Jordan Benzing"},"creator":{"@type":"Person","name":"Jordan Benzing"},"accountablePerson":{"@type":"Person","name":"Jordan Benzing"},"copyrightHolder":{"@type":"Person","name":"Jordan Benzing"},"copyrightYear":"2021","dateCreated":"2021-06-28T00:00:00.00Z","datePublished":"2021-06-28T00:00:00.00Z","dateModified":"2021-06-28T00:00:00.00Z","publisher":{"@type":"Organization","name":"Jordan Benzing","url":"http://preview.jordantheitguy.com/","logo":{"@type":"ImageObject","url":"http:\/\/preview.jordantheitguy.com\/favicons\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"http:\/\/preview.jordantheitguy.com\/post\/query-defender-for-endpoint-part-2\/","wordCount":"823","genre":["Security"],"keywords":["PowerShell","Security"]}</script>
+</head>
+<body>
+<header><div class="page-top
+.">
+<a role=button class=navbar-burger data-target=navMenu aria-label=menu aria-expanded=false>
+<span aria-hidden=true></span>
+<span aria-hidden=true></span>
+<span aria-hidden=true></span>
+</a>
+<nav>
+<ul class=nav__list id=navMenu>
+<div class=nav__links>
+<li>
+<a href=/ title>Home</a>
+</li>
+<li>
+<a href=/post/ title>Posts</a>
+</li>
+<li>
+<a href=/about/ title>About</a>
+</li>
+</div>
+<ul>
+<li>
+<a class=theme-switch title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</li>
+</ul>
+</ul>
+</nav>
+</div>
+</header>
+<div class=wrapper>
+<aside><div class="sidebar
+.">
+<div class=sidebar__content>
+<div class=logo-title>
+<div class=title>
+<img src=/images/JordanTheITGuy.png alt="profile picture">
+<h3 title><a href=/>I'm JordanTheITGuy</a></h3>
+<div class=description>
+<p>I currently work as an Engineer at Patch My PC. <br>I also do some consulting work in the world of IT on the side. <br>I'm a Microsoft MVP for EMS.<br></p>
+</div>
+</div>
+</div>
+<ul class=social-links>
+<li>
+<a href=https://twitter.com/JordanTheITguy rel=me aria-label=Twitter title=Twitter>
+<i class="fab fa-twitter fa-2x" aria-hidden=true></i>
+</a>
+</li>
+<li>
+<a href=https://github.com/JordanTheITGuy rel=me aria-label=Github title=Github>
+<i class="fab fa-github fa-2x" aria-hidden=true></i>
+</a>
+</li>
+<li>
+<a href=https://www.youtube.com/c/JordanTheItGuy rel=me aria-label=Youtube title=Youtube>
+<i class="fab fa-youtube fa-2x" aria-hidden=true></i>
+</a>
+</li>
+<li>
+<a href=https://www.linkedin.com/in/jordan-benzing-432b0619/ rel=me aria-label=Linkedin title=Linkedin>
+<i class="fab fa-linkedin fa-2x" aria-hidden=true></i>
+</a>
+</li>
+</ul>
+</div><footer class="footer footer--sidebar">
+<div class=by_farbox>
+<ul class=footer__list>
+<li class=footer__item>
+&copy;
+Jordan Benzing
+2022
+</li>
+</ul>
+</div>
+</footer>
+<script type=text/javascript src=/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I=" crossorigin=anonymous></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FGZGWGHKYG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-FGZGWGHKYG')</script>
+</div>
+</aside>
+<main>
+<div class=autopagerize_page_element>
+<div class=content>
+<div class="post
+.">
+<div class=post-content>
+<div class=post-title>
+<h1>Query Defender for Endpoint Part 2</h1>
+<div class=info>
+<em class="fas fa-calendar-day"></em>
+<span class=date>
+Mon, Jun 28, 2021
+</span>
+<em class="fas fa-stopwatch"></em>
+<span class=reading-time>4-minute read</span>
+</div>
+</div><h1 id=part-two-on-getting-data-from-defender-for-endpoint>Part Two on Getting Data from Defender for Endpoint</h1>
+<p>This blog is the second post in a multipart series on how to get data from Defender for endpoint and analyze the patching data that is returned. Previously, we covered how to build a token, and request data from the Defender for endpoint API. This time we will cover how to create an azure app registration that allows the minimum required permissions to gather this data.</p>
+<p>To refresh your memory on what data, and how we would acquire said data, give a read back over part one.</p>
+<h2 id=what-is-an-azure-app-registration>What is an Azure App Registration</h2>
+<p>An azure app registration, can be a rather exhaustive conversation. The core usage is to provide authentication to allow a user, or a service access to an azure tenant. Azure app registrations have changed over the years. This includes changes to the authentication library they use, and the granularity of permissions they allow.</p>
+<h2 id=azure-app-registration-requirements>Azure App Registration Requirements</h2>
+<p>To create an azure app registration in a tenant you need some special permissions. You need to not only be able to create the app registration, but you also need to be able to approve the usage of those permissions in your organization. To do this, you will need one of three different roles.</p>
+<ul>
+<li><a href=https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#application-administrator>Application Administrator</a></li>
+<li><a href=https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#application-developer>Application Developer</a></li>
+<li><a href=https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#cloud-application-administrator>Cloud Application Administrator</a></li>
+</ul>
+<p>You can read more about quickly setting up any type of app registration <a href=https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app>here</a>:</p>
+<h2 id=creating-an-app-registration-for-defender-for-endpoint>Creating an App Registration for Defender for Endpoint</h2>
+<p>Lets walk through the process to create an azure registration that we could use to complete the earlier released post. To register, you will first need to login at portal.azure.com and then navigate to app registrations.</p>
+<h3 id=creating-a-registration>Creating a registration</h3>
+<p>This will then launch the AAD registered apps portal, and launch the applications list blade. From here you can create a new registration, see existing registrations or troubleshoot issues. If you are not familiar with this section, this is also where you would see how your CMG connects to Azure, desktop analytics and more.</p>
+<p>For this, we will simply select &lsquo;New Registration&rsquo;</p>
+<p>Selecting this will open the window to start creating a new registration.</p>
+<p>Creating a registration is pretty simple, just enter a name choose the scope of who can use it and give it a name.
+For our example, I have given the app a name ‘Defender For Endpoint API. Once you click register at the bottom of the screen you will then be presented with a small box in the top right once the app is created.</p>
+<h3 id=permissions-for-the-app>Permissions for the App</h3>
+<p>Once the application exists we are ready to start adding permissions to the application.</p>
+<p>Before we add any permission we can go ahead and remove the User.Read permission as we will not need it. To do this click the three dots on the far right and select delete.</p>
+<p>We can do so by using the add a permission button under the API permissions node.</p>
+<p>This will then launch the request API permissions section.</p>
+<p>From this section select the option &lsquo;APIs my organization uses&rsquo;</p>
+<p>This will then let you search a lot of the build in API’s that are available in the portal. We want to search for Windows Defender ATP.</p>
+<p>Then we will want to select Application Permissions to ensure that the PowerShell script only requires a token, and not a login. We could of course do a login, but this way we can use the token for automation purposes later.</p>
+<p>Choose the type of authentication
+We can then search for the three permissions we need</p>
+<p>Machine.Read.All
+Software.Read.All
+Vulnerability.Read.All
+Once each of these permissions has been found, and checked, select add permissions at the bottom of the page.</p>
+<p>Once completed it will look like this, and you will need to then grant admin consent.</p>
+<p>Granting Admin Consent will pop up a box to confirm that you would like to grant these permissions.</p>
+<p>At this time the permissions are set now we just need to create a key!</p>
+<h3 id=creating-a-key-aka-a-secret>Creating a Key AKA a Secret</h3>
+<p>First we will navigate to the certificates and secrets section.</p>
+<p>Next we can create a new client secret, note for improved security usage of a certificate is also recommended for identity validation.</p>
+<p>This will then open the Add a client secret window. Select a time frame for the secrets expiration. I would recommend no more than 12 months. And select Add.</p>
+<p>This will then generate the client secret ID and the value for the secret.</p>
+<style type=text/css>.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fa}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379.0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628.0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628.0l-22.627 22.627c-6.248 6.248-6.248 16.379.0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196.0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627.0 12 5.373 12 12v1e2h12c6.627.0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info">
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"/></svg></span>Info</p><p><strong>IMPORTANT:</strong> Once you leave this screen the value is hidden and cannot be recovered, securely store this value.</p></div>
+<p>Get your tokens
+That’s it the secret is now generated and now we can move on to testing!</p>
+<h3 id=validation>Validation</h3>
+<p>A quick stroll back to part 1 to grab the script is all we need. We then plug in, the tenant ID, application ID, and the secret.</p>
+</div>
+<div class=post-footer>
+<div class=info>
+<span class=separator><a class=category href=/categories/security/>Security</a></span>
+<span class=separator><a class=tag href=/tags/powershell/>PowerShell</a><a class=tag href=/tags/security/>Security</a></span>
+</div>
+</div>
+<div id=fb_comments_container>
+<h2>comments</h2>
+<script src=https://utteranc.es/client.js repo=JordanTheITGuy/jordantheitguy.com-comments issue-term=title theme=preferred-color-scheme crossorigin=anonymous async></script>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div><footer class="footer footer--base">
+<div class=by_farbox>
+<ul class=footer__list>
+<li class=footer__item>
+&copy;
+Jordan Benzing
+2022
+</li>
+</ul>
+</div>
+</footer>
+<script type=text/javascript src=/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I=" crossorigin=anonymous></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FGZGWGHKYG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-FGZGWGHKYG')</script>
+</body>
+</html>
