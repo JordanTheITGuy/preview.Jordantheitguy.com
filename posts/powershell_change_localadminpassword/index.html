@@ -1,0 +1,199 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>Powershell Change The Local Administrator Account/Password - JordanTheITGuy</title><meta name=Description content="Back in May of 2014 Microsoft released a windows update – MS14-025 – that removed the ability to push out passwords to workstations remotely using group policy"><meta property="og:title" content="Powershell Change The Local Administrator Account/Password">
+<meta property="og:description" content="Back in May of 2014 Microsoft released a windows update – MS14-025 – that removed the ability to push out passwords to workstations remotely using group policy">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2015-10-27T00:00:00+00:00">
+<meta property="article:modified_time" content="2015-10-27T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Powershell Change The Local Administrator Account/Password">
+<meta name=twitter:description content="Back in May of 2014 Microsoft released a windows update – MS14-025 – that removed the ability to push out passwords to workstations remotely using group policy">
+<meta name=application-name content="JordanTheITGuy">
+<meta name=apple-mobile-web-app-title content="JordanTheITGuy"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/><link rel=prev href=http://preview.jordantheitguy.com/posts/client_server_version_error_in_scom_2012r2_visio/><link rel=next href=http://preview.jordantheitguy.com/posts/powershell_get_members_of_group/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Powershell Change The Local Administrator Account/Password","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/posts\/powershell_change_localadminpassword\/"},"genre":"posts","keywords":"PowerShell","wordcount":590,"url":"http:\/\/preview.jordantheitguy.com\/posts\/powershell_change_localadminpassword\/","datePublished":"2015-10-27T00:00:00+00:00","dateModified":"2015-10-27T00:00:00+00:00","publisher":{"@type":"Organization","name":"Jordan Benzing"},"author":{"@type":"Person","name":"Jordan Benzing"},"description":"Back in May of 2014 Microsoft released a windows update – MS14-025 – that removed the ability to push out passwords to workstations remotely using group policy"}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':''==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:''==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Powershell Change The Local Administrator Account/Password</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author>Jordan Benzing</a></span>&nbsp;<span class=post-category>included in <a href=/categories/powershell/><i class="far fa-folder fa-fw"></i>PowerShell</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2015-10-27>2015-10-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;590 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#working-around-the-issue>Working Around the Issue</a>
+<ul>
+<li><a href=#what-this-script-does>What this script does</a></li>
+<li><a href=#what-this-script-doesnt-do>What this script DOESNT do:</a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><div class=content id=content><h1 id=what-happened>What Happened?</h1>
+<p>Back in May of 2014 Microsoft released a windows update – MS14-025 – that removed the ability to push out passwords to workstations remotely using group policy due to issues with elevation of privilege. If that patch is applied it’s a rather large pain to change the local admin after that without something like SCCM in place.</p>
+<h2 id=working-around-the-issue>Working Around the Issue</h2>
+<p>After working through some similar issues and reading a few TechNet Articles I decided to build a quick and slightly dirty powershell script to do several things as needed. This particular script does the following:</p>
+<h3 id=what-this-script-does>What this script does</h3>
+<ul>
+<li>Renames the Administrator Account on a specified computer.</li>
+<li>Resets the password of that account on the specified computer.</li>
+<li>Enables or Disables the default Administrator account.</li>
+<li>Creates a Dummy Account called “Administrator” that has no rights with a static password of “P@ssword1”</li>
+</ul>
+<h3 id=what-this-script-doesnt-do>What this script DOESNT do:</h3>
+<ul>
+<li>Provide flexibility to if the password is set to expire or not.</li>
+<li>Encrypt well, anything. It’s all in raw plain text. Some other day I might go back and encrypt the password that is sent to the local administrator account.</li>
+<li>Currently process a list of computers – It could though the logic is there just not tested and used.</li>
+</ul>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span><span class=nv>$computers</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=err>“</span><span class=n>What</span> <span class=n>is</span> <span class=n>the</span> <span class=n>Computer</span> <span class=n>Name</span><span class=p>?</span><span class=err>”</span> 
+<span class=ln> 1</span><span class=c>#Enter the name of the computer you would like to modify</span>
+<span class=ln> 2</span><span class=nv>$userPW</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=err>“</span><span class=n>What</span> <span class=n>is</span> <span class=n>the</span> <span class=n>Password</span> <span class=n>you</span> <span class=n>would</span> <span class=n>like</span> <span class=n>to</span> <span class=n>set</span><span class=p>?</span><span class=err>”</span>
+<span class=ln> 3</span><span class=c>#Enter the password you would like to set for the Administrator account.</span>
+<span class=ln> 4</span><span class=nv>$CurrentAdmin</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=err>“</span><span class=n>What</span> <span class=n>is</span> <span class=n>the</span> <span class=n>Current</span> <span class=n>Administrator</span> <span class=n>Name</span><span class=p>?</span><span class=err>”</span> 
+<span class=ln> 5</span><span class=c>#Enter the name of the current administrator account.</span>
+<span class=ln> 6</span><span class=nv>$DisableDefaultAdminAccount</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=err>“</span><span class=k>If</span> <span class=n>you</span> <span class=n>like</span> <span class=n>to</span> <span class=n>Enable</span> <span class=n>the</span> <span class=k>Default</span> <span class=n>Administrator</span> <span class=n>Account</span> <span class=n>enter</span> <span class=n>0</span><span class=p>.</span> <span class=k>If</span> <span class=n>you</span> <span class=n>would</span> <span class=n>like</span> <span class=n>to</span> <span class=n>DISABLE</span> <span class=n>the</span> <span class=n>account</span> <span class=n>enter</span> <span class=n>2</span><span class=err>”</span> 
+<span class=ln> 7</span><span class=c>#Enter the status you would like the Administrator account to have. Enabled or Disabled.</span>
+<span class=ln> 8</span><span class=k>foreach</span> <span class=p>(</span><span class=nv>$computer</span> <span class=k>in</span> <span class=nv>$computers</span><span class=p>)</span> <span class=p>{</span> 
+<span class=ln> 9</span><span class=c>#This doesn’t need to be a function, I left it like this as it doesn’t hurt anything and if I Wanted to come back and actually create a LIST of computers I could.</span>
+<span class=ln>10</span>    <span class=k>if</span> <span class=p>(</span><span class=nb>test-connection</span> <span class=n>-computername</span> <span class=nv>$computer</span> <span class=n>-quiet</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>11</span>        <span class=k>try</span> <span class=p>{</span>
+<span class=ln>12</span>            <span class=nv>$localAdmin</span> <span class=p>=</span> <span class=no>[ADSI]</span><span class=p>(</span><span class=err>“</span><span class=n>WinNT</span><span class=err>:</span><span class=p>//</span><span class=err>”</span> <span class=p>+</span> <span class=nv>$computer</span> <span class=p>+</span> <span class=err>“</span><span class=p>/</span><span class=err>”</span> <span class=p>+</span> <span class=nv>$CurrentAdmin</span> <span class=p>+</span> <span class=err>“</span><span class=p>,</span><span class=n>User</span><span class=err>”</span><span class=p>)</span>
+<span class=ln>13</span>            <span class=k>if</span><span class=p>(</span><span class=nv>$DisableDefaultAdminAccount</span> <span class=o>-eq</span> <span class=err>‘</span><span class=n>0</span><span class=err>’</span><span class=p>){</span>
+<span class=ln>14</span>                <span class=nv>$LocalAdmin</span><span class=p>.</span><span class=n>UserFlags</span> <span class=p>=</span> <span class=n>65536</span> <span class=c># UserFlags Value for the account to be active with a password set to never expire.</span>
+<span class=ln>15</span>                <span class=nv>$localAdmin</span><span class=p>.</span><span class=n>CommitChanges</span><span class=p>()</span> <span class=c># Commit the change</span>
+<span class=ln>16</span>            <span class=p>}</span>
+<span class=ln>17</span>            <span class=k>Else</span> <span class=p>{</span>
+<span class=ln>18</span>                <span class=nv>$LocalAdmin</span><span class=p>.</span><span class=n>UserFlags</span> <span class=p>=</span> <span class=n>66083</span> <span class=c>#UserFlags Value for the account to be Disabled with password set to never expire.</span>
+<span class=ln>19</span>                <span class=nv>$localAdmin</span><span class=p>.</span><span class=n>CommitChanges</span><span class=p>()</span> <span class=c># Commit the change</span>
+<span class=ln>20</span>            <span class=p>}</span>
+<span class=ln>21</span>            <span class=nv>$localAdmin</span><span class=p>.</span><span class=n>psbase</span><span class=p>.</span><span class=n>rename</span><span class=p>(</span><span class=err>‘</span><span class=n>SuperAdmin</span><span class=err>’</span><span class=p>)</span>
+<span class=ln>22</span>            <span class=nv>$localAdmin</span><span class=p>.</span><span class=n>setpassword</span><span class=p>(</span><span class=nv>$userPW</span><span class=p>)</span>
+<span class=ln>23</span>            <span class=nb>Write-Host</span> <span class=err>“</span><span class=n>Successfully</span> <span class=n>Renamed</span> <span class=n>Administrator</span> <span class=n>Account</span> <span class=n>on</span> <span class=nv>$computer</span><span class=err>”</span> <span class=n>-fore</span> <span class=n>green</span>
+<span class=ln>24</span>            <span class=nv>$ObjComputer</span> <span class=p>=</span> <span class=no>[ADSI]</span><span class=p>(</span><span class=err>“</span><span class=n>WinNT</span><span class=err>:</span><span class=p>//</span><span class=err>”</span> <span class=p>+</span> <span class=nv>$Computer</span><span class=p>)</span>
+<span class=ln>25</span>            <span class=nv>$DummyUser</span> <span class=p>=</span> <span class=nv>$OBJComputer</span><span class=p>.</span><span class=n>Create</span><span class=p>(</span><span class=err>“</span><span class=n>User</span><span class=err>”</span><span class=p>,</span> <span class=err>“</span><span class=n>Administrator</span><span class=err>”</span><span class=p>)</span>
+<span class=ln>26</span>            <span class=nv>$DummyUser</span><span class=p>.</span><span class=n>setPassword</span><span class=p>(</span><span class=err>“</span><span class=n>P</span><span class=nv>@ssword1</span><span class=err>”</span><span class=p>)</span>
+<span class=ln>27</span>            <span class=nv>$DummyUser</span><span class=p>.</span><span class=n>SetInfo</span><span class=p>()</span> <span class=c>#Commit this change of a new account with this password to the SAM DB – this makes the account visable and actable upon</span>
+<span class=ln>28</span>            <span class=nv>$DummyUser</span><span class=p>.</span><span class=n>Description</span> <span class=p>=</span> <span class=err>“</span><span class=n>Dummy</span> <span class=n>Account</span><span class=err>”</span> <span class=c>#Update the description of the account once commited to SAM</span>
+<span class=ln>29</span>            <span class=nv>$DummyUser</span><span class=p>.</span><span class=n>UserFlags</span> <span class=p>=</span> <span class=n>66083</span>
+<span class=ln>30</span>            <span class=nv>$DummyUser</span><span class=p>.</span><span class=n>CommitChanges</span><span class=p>()</span> <span class=c># Commit the change of disabled and the description.</span>
+<span class=ln>31</span>            <span class=nb>Write-Host</span> <span class=err>“</span><span class=n>Successfully</span> <span class=n>Created</span> <span class=n>Administrator</span> <span class=n>Account</span> <span class=n>on</span> <span class=nv>$computer</span><span class=err>”</span> <span class=n>-fore</span> <span class=n>green</span>
+<span class=ln>32</span>        <span class=p>}</span>
+<span class=ln>33</span>        <span class=k>catch</span> <span class=p>{</span>
+<span class=ln>34</span>            <span class=nb>Write-Host</span> <span class=err>“</span><span class=nv>$_</span><span class=err>”</span> <span class=n>-fore</span> <span class=n>red</span>
+<span class=ln>35</span>        <span class=p>}</span>
+<span class=ln>36</span>    <span class=p>}</span>
+<span class=ln>37</span>    <span class=k>else</span> <span class=p>{</span>
+<span class=ln>38</span>        <span class=nb>Write-Host</span> <span class=err>“</span><span class=n>Ping</span> <span class=n>Failed</span> <span class=n>to</span><span class=err>”</span> <span class=nv>$computer</span>
+<span class=ln>39</span>    <span class=p>}</span>
+<span class=ln>40</span><span class=p>}</span>
+</code></pre></div><p>Some other future developments may include randomizing the password that is provided encrypting it and storing it somewhere.</p>
+<p>Please note as with everything posted here this is published as is and doesn’t promise support or that it will work well or properly even within your environment.</p>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2015-10-27</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/ data-title="Powershell Change The Local Administrator Account/Password" data-via=@JordanTheITGuy data-hashtags=PowerShell><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/ data-hashtag=PowerShell><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/ data-title="Powershell Change The Local Administrator Account/Password" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=http://preview.jordantheitguy.com/posts/powershell_change_localadminpassword/><i class="fab fa-reddit fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/powershell/>PowerShell</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/client_server_version_error_in_scom_2012r2_visio/ class=prev rel=prev title="Visio 2010/2013 Client Server Version Error in SCOM 2012R2 Visio Drawings"><i class="fas fa-angle-left fa-fw"></i>Visio 2010/2013 Client Server Version Error in SCOM 2012R2 Visio Drawings</a>
+<a href=/posts/powershell_get_members_of_group/ class=next rel=next title="PowerShell Get Members Of Group">PowerShell Get Members Of Group<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Jordan Benzing</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</html>

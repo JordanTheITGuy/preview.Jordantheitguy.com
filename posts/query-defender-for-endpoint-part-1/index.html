@@ -1,0 +1,288 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>Query Defender for Endpoint Part 1 - JordanTheITGuy</title><meta name=Description content="Vulnerability Management is hard."><meta property="og:title" content="Query Defender for Endpoint Part 1">
+<meta property="og:description" content="Vulnerability Management is hard.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-01-28T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-01-28T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Query Defender for Endpoint Part 1">
+<meta name=twitter:description content="Vulnerability Management is hard.">
+<meta name=application-name content="JordanTheITGuy">
+<meta name=apple-mobile-web-app-title content="JordanTheITGuy"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/><link rel=prev href=http://preview.jordantheitguy.com/posts/to-do-with-siri/><link rel=next href=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Query Defender for Endpoint Part 1","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/posts\/query-defender-for-endpoint-part-1\/"},"genre":"posts","keywords":"PowerShell","wordcount":1624,"url":"http:\/\/preview.jordantheitguy.com\/posts\/query-defender-for-endpoint-part-1\/","datePublished":"2021-01-28T00:00:00+00:00","dateModified":"2021-01-28T00:00:00+00:00","publisher":{"@type":"Organization","name":"Jordan Benzing"},"author":{"@type":"Person","name":"Jordan Benzing"},"description":"Vulnerability Management is hard."}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':''==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:''==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Query Defender for Endpoint Part 1</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author>Jordan Benzing</a></span>&nbsp;<span class=post-category>included in <a href=/categories/security/><i class="far fa-folder fa-fw"></i>Security</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-01-28>2021-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1624 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;8 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents></nav></div>
+</div><div class=content id=content><h1 id=vulnerability-management-is-hard>Vulnerability Management is HARD</h1>
+<p>nderstanding patch compliance is mission critical task for all organizations regardless of their size or affiliation. What a lot of organizations struggle with is the different between vulnerabilities and patch compliance. As a result a lot of companies end up buying expensive third party tools to scan their environment for vulnerabilities, which happens to include your base Microsoft Patches.</p>
+<p>These vulnerability scans result in providing a huge sometimes seemingly unconquerable list for the IT department. Fortunately a large number of these vulnerabilities can be mitigated using a third party patch management solution like PatchMyPC.</p>
+<p>But before we start patching or vulnerability hunting we need to know what we are hunting. Fortunately the Defender ATP portal can make the initial vulnerability discovery easy.</p>
+<p>In this blog post the following items will be covered:</p>
+<ul>
+<li>Building an Authentication Token for Defender</li>
+<li>Querying the Defender for Endpoint API for vulnerabilities using PowerShell</li>
+<li>Turning that Data into a consumable CSV Report</li>
+</ul>
+<p>There will be future blog posts to cover the following:</p>
+<ul>
+<li>Creating a security key with minimal read permissions for the API</li>
+<li>Converting Vulnerability data into PowerBI Reports</li>
+<li>Querying the same data using KQL</li>
+</ul>
+<p>The above planned posts will be updated and linked as they are written.</p>
+<p>This blog post assumes you already have an app registration, and an API secret key in Azure AD – or have the knowledge to create one. If you do not – a new post on how to create one is scheduled for next week.</p>
+<h1 id=asking-the-right-question>Asking the right Question</h1>
+<p>Before we get into automation lets jump into how we can test out different API endpoints to find out what data we would get back. Whenever I do data analytics, or build a report the first thing I do is try to make sure I’m asking, and answering the right question. If you navigate with me to securitycenter.Microsoft.com we can find to query the endpoint API without any type of automation. This way we can ensure we have the right question before we waste a bunch of time on other things.</p>
+<p>Once you click on the API Explorer you’ll be taken to a webpage that showcase different ways you can query the defender API to retrieve data. I would encourage you to use the API Explorer to test different endpoints and see what data is sent back and how. While the overall documentation for the website is pretty good, it’s confusing especially if API’s are not something you play with on a regular basis.</p>
+<p>You can use these queries to get a good idea of how the API works simply click one of the samples, for this example I’m going to chose “get 10 Vulnerabilities by machines” and then click the “run query” button. Once you click the run query button if you have any machines with vulnerabilities in the environment you’ll get a return back!</p>
+<p>This alone gives us a bunch of data that’s useful. We know the CVE-ID we know the machine ID and we can use that to find the referenced machine we need to go patch. However, this format this style isn’t very helpful and having to log into a web portal like this is probably not something we can expect a manager to do on a daily basis.</p>
+<p>Fortunately we can take the URL – presented to us above and use it with PowerShell to automate the data grab, and make it present only the data we are interested in.</p>
+<p>For this we will be using the URL:</p>
+<p><code>https://api-us.securitycenter.windows.com/api/vulnerabilities/machinesVulnerabilities?</code></p>
+<h1 id=asking-the-right-question--with-powershell>Asking the Right Question – With PowerShell</h1>
+<p>PowerShell has a couple of different ways to query an API. However before we can even get started with querying the API we need to build our bearer token which will authenticate us to ASK questions. Fortunately this is pretty well documented on the Microsoft Website.</p>
+<div class="details admonition note">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-pencil-alt fa-fw"></i>This was theory, it's different in the real world<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content><strong>NOTE:</strong> Everything above was theory and info, USE CAUTION on the lines below. When you query the API you could potentially pull sensitive (vulnerabilties) – information – and a LARGE amount of information. MAKE SURE YOU TEST before you drown your machine in data.</div>
+</div>
+</div>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span><span class=nv>$tenantId</span> <span class=p>=</span> <span class=s1>&#39;&#39;</span> <span class=c>### Paste your tenant ID here</span>
+<span class=ln> 1</span><span class=nv>$appId</span> <span class=p>=</span> <span class=s1>&#39;&#39;</span> <span class=c>### Paste your Application ID here</span>
+<span class=ln> 2</span><span class=nv>$appSecret</span> <span class=p>=</span> <span class=s1>&#39;&#39;</span> <span class=c>### Paste your Application secret here</span>
+<span class=ln> 3</span>    
+<span class=ln> 4</span><span class=c>#NOTE: Build the auth response token to the Windows Security Center API (Basically establishing a logged in session)</span>
+<span class=ln> 5</span><span class=nv>$resourceAppIdUri</span> <span class=p>=</span> <span class=s1>&#39;https://api.securitycenter.windows.com&#39;</span>
+<span class=ln> 6</span><span class=nv>$oAuthUri</span> <span class=p>=</span> <span class=s2>&#34;https://login.windows.net/$TenantId/oauth2/token&#34;</span>
+<span class=ln> 7</span><span class=nv>$authBody</span> <span class=p>=</span> <span class=no>[Ordered]</span> <span class=p>@{</span>
+<span class=ln> 8</span>     <span class=n>resource</span> <span class=p>=</span> <span class=s2>&#34;$resourceAppIdUri&#34;</span>
+<span class=ln> 9</span>     <span class=n>client_id</span> <span class=p>=</span> <span class=s2>&#34;$appId&#34;</span>
+<span class=ln>10</span>     <span class=n>client_secret</span> <span class=p>=</span> <span class=s2>&#34;$appSecret&#34;</span>
+<span class=ln>11</span>     <span class=n>grant_type</span> <span class=p>=</span> <span class=s1>&#39;client_credentials&#39;</span>
+<span class=ln>12</span><span class=p>}</span>
+<span class=ln>13</span><span class=nv>$authResponse</span> <span class=p>=</span> <span class=nb>Invoke-RestMethod</span> <span class=n>-Method</span> <span class=n>Post</span> <span class=n>-Uri</span> <span class=nv>$oAuthUri</span> <span class=n>-Body</span> <span class=nv>$authBody</span> <span class=n>-ErrorAction</span> <span class=n>Stop</span>
+<span class=ln>14</span><span class=c>#NOTE: This returns your access token, and below we pull out the token that will be used as the authorization token going forward. </span>
+<span class=ln>15</span><span class=nv>$token</span> <span class=p>=</span> <span class=nv>$authResponse</span><span class=p>.</span><span class=n>access_token</span>
+</code></pre></div><p>The above token object will then be used to query the API and get data back. Once we have the token (You can validate it by running $token in the command line) we can use a simple invoke command to get some data back and translate it from JSON.</p>
+<p>First we build our header. Note how we specific the content type, and the bearer token.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln>0</span>    <span class=nv>$headers</span> <span class=p>=</span> <span class=p>@{</span> 
+<span class=ln>1</span>        <span class=s1>&#39;Content-Type&#39;</span> <span class=p>=</span> <span class=s1>&#39;application/json&#39;</span>
+<span class=ln>2</span>        <span class=n>Accept</span> <span class=p>=</span> <span class=s1>&#39;application/json&#39;</span>
+<span class=ln>3</span>        <span class=n>Authorization</span> <span class=p>=</span> <span class=s2>&#34;Bearer $token&#34;</span> 
+<span class=ln>4</span>    <span class=p>}</span>
+</code></pre></div><p>Then we invoke the URL that we stole, I mean borrowed from the API Explorer.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln>0</span>    <span class=nv>$url</span> <span class=p>=</span> <span class=s2>&#34;https://api-us.securitycenter.windows.com/api/vulnerabilities/machinesVulnerabilities?&#34;</span>
+<span class=ln>1</span>    <span class=nv>$response</span> <span class=p>=</span> <span class=nb>Invoke-WebRequest</span> <span class=n>-Method</span> <span class=n>Get</span> <span class=n>-Uri</span> <span class=nv>$url</span> <span class=n>-Headers</span> <span class=nv>$headers</span> <span class=n>-ErrorAction</span> <span class=n>Stop</span>
+<span class=ln>2</span>    <span class=nv>$Data</span> <span class=p>=</span> <span class=nv>$response</span><span class=p>.</span><span class=n>Content</span> <span class=p>|</span> <span class=nb>ConvertFrom-Json</span> 
+<span class=ln>3</span>    <span class=nv>$Data</span><span class=p>.</span><span class=n>value</span>
+</code></pre></div><p>Behold our vulnerabilities! – Now there are only a few more things we need to do here. Most managers won’t exactly approve of being handed an obscure “MachineID” as a way to start fixing issues. Fortunately the API has a way for us to retrieve that information as well.</p>
+<p><code>https://api-us.securitycenter.windows.com/api/machines</code></p>
+<p>The above uri will get us our machine information that means we can re-run our above code with one small change and we can get the data we want back!</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln>0</span><span class=n>https</span><span class=err>:</span><span class=p>//</span><span class=nb>api-us</span><span class=p>.</span><span class=n>securitycenter</span><span class=p>.</span><span class=n>windows</span><span class=p>.</span><span class=n>com</span><span class=p>/</span><span class=n>api</span><span class=p>/</span><span class=n>machines</span>
+<span class=ln>1</span>
+<span class=ln>2</span><span class=n>The</span> <span class=n>above</span> <span class=n>uri</span> <span class=n>will</span> <span class=n>get</span> <span class=n>us</span> <span class=n>our</span> <span class=n>machine</span> <span class=n>information</span> <span class=n>that</span> <span class=n>means</span> <span class=n>we</span> <span class=n>can</span> <span class=nb>re-run</span> <span class=n>our</span> <span class=n>above</span> <span class=n>code</span> <span class=n>with</span> <span class=n>one</span> <span class=n>small</span> <span class=n>change</span> <span class=n>and</span> <span class=n>we</span> <span class=n>can</span> <span class=n>get</span> <span class=n>the</span> <span class=n>data</span> <span class=n>we</span> <span class=n>want</span> <span class=n>back</span><span class=p>!</span>
+</code></pre></div><p>This will return back the ObjectID and the DNS name of the machine, then it’s just some matching games in PowerShell and we’ve got the vulnerabilities combined with useful information!</p>
+<p>An important NOTE: You could do all of this data analysis in PowerBI – and simply absorb the two outputs and skip this step. However if you just want a nifty CSV – this works great.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span>    <span class=nv>$endingData</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=n>System</span><span class=p>.</span><span class=n>Collections</span><span class=p>.</span><span class=n>Generic</span><span class=p>.</span><span class=n>List</span><span class=no>[PsObject]</span>
+<span class=ln> 1</span>    <span class=k>foreach</span><span class=p>(</span><span class=nv>$machine</span> <span class=k>in</span> <span class=nv>$machineData</span><span class=p>.</span><span class=n>value</span><span class=p>){</span>
+<span class=ln> 2</span>        <span class=nv>$MachineVulnerabilitylist</span> <span class=p>=</span> <span class=nv>$vulnerabilityData</span><span class=p>.</span><span class=n>value</span> <span class=p>|</span> <span class=nb>Where-object</span> <span class=p>{</span><span class=nv>$_</span><span class=p>.</span><span class=n>MachineID</span> <span class=o>-eq</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>ID</span><span class=p>}</span>
+<span class=ln> 3</span>        <span class=k>foreach</span><span class=p>(</span><span class=nv>$vulnerability</span> <span class=k>in</span> <span class=nv>$MachineVulnerabilitylist</span><span class=p>){</span>
+<span class=ln> 4</span>            <span class=nv>$machineDataHash</span> <span class=p>=</span> <span class=no>[ordered]</span><span class=p>@{</span>
+<span class=ln> 5</span>                <span class=n>MachineName</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>computerDnsName</span>
+<span class=ln> 6</span>                <span class=n>MachineID</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>id</span>
+<span class=ln> 7</span>                <span class=n>lastSeen</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>lastSeen</span>
+<span class=ln> 8</span>                <span class=n>OSPlatform</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>osPlatform</span>
+<span class=ln> 9</span>                <span class=n>version</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>version</span>
+<span class=ln>10</span>                <span class=n>agentVersion</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>agentVersion</span>
+<span class=ln>11</span>                <span class=n>osBuild</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>osBuild</span>
+<span class=ln>12</span>                <span class=n>isaadJoined</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>isAadJoined</span>
+<span class=ln>13</span>                <span class=n>lastIpAddress</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>lastIpAddress</span>
+<span class=ln>14</span>                <span class=n>lastExternalIpAddress</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>lastExternalIpAddress</span>
+<span class=ln>15</span>                <span class=n>healthstatus</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>healthStatus</span>
+<span class=ln>16</span>                <span class=n>CVE</span> <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>cveID</span>
+<span class=ln>17</span>                <span class=n>productName</span> <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>productName</span>
+<span class=ln>18</span>                <span class=n>productVendor</span> <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>productVendor</span>
+<span class=ln>19</span>                <span class=n>productVersion</span> <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>Version</span>
+<span class=ln>20</span>                <span class=n>fixingKBID</span> <span class=p>=</span> <span class=p>$(</span><span class=k>if</span><span class=p>(</span><span class=nv>$null</span> <span class=o>-eq</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>fixingKBID</span><span class=p>){</span><span class=nv>$vulnerability</span><span class=p>.</span><span class=n>fixingKbId</span><span class=p>};</span><span class=k>if</span><span class=p>(</span><span class=nv>$null</span> <span class=o>-ne</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>fixingKBID</span><span class=p>){</span><span class=s2>&#34;KB</span><span class=p>$(</span><span class=nv>$vulnerability</span><span class=p>.</span><span class=n>FixingKBID</span><span class=p>)</span><span class=s2>&#34;</span><span class=p>})</span>
+<span class=ln>21</span>            <span class=p>}</span>
+<span class=ln>22</span>            <span class=nv>$vuln</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-typename</span> <span class=n>PSobject</span> <span class=n>-property</span> <span class=nv>$machineDataHash</span>
+<span class=ln>23</span>            <span class=nv>$endingData</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=nv>$vuln</span><span class=p>)</span> <span class=p>|</span> <span class=nb>Out-Null</span>
+<span class=ln>24</span>        <span class=p>}</span>
+<span class=ln>25</span>    <span class=p>}</span>
+</code></pre></div><p>Again please Note: This data can be merged in PowerBI instead</p>
+<p>So what does this look like all together and how accurate or useful is it? Mashing the code together is pretty easy below as to how accurate it is? The missing KB’s I have found to be very accurate I have not dug into the details of how exact the vulnerability data is or how fast the data refreshes. I imagine with pretty fast though with the EDR implications.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span><span class=nv>$tenantId</span> <span class=p>=</span> <span class=s1>&#39;&#39;</span> <span class=c>### Paste your tenant ID here</span>
+<span class=ln> 1</span><span class=nv>$appId</span> <span class=p>=</span> <span class=s1>&#39;&#39;</span> <span class=c>### Paste your Application ID here</span>
+<span class=ln> 2</span><span class=nv>$appSecret</span> <span class=p>=</span> <span class=s1>&#39;&#39;</span> <span class=c>### Paste your Application secret here</span>
+<span class=ln> 3</span><span class=nv>$resourceAppIdUri</span> <span class=p>=</span> <span class=s1>&#39;https://api.securitycenter.windows.com&#39;</span>
+<span class=ln> 4</span><span class=nv>$oAuthUri</span> <span class=p>=</span> <span class=s2>&#34;https://login.windows.net/$TenantId/oauth2/token&#34;</span>
+<span class=ln> 5</span><span class=nv>$authBody</span> <span class=p>=</span> <span class=no>[Ordered]</span> <span class=p>@{</span>
+<span class=ln> 6</span>    <span class=n>resource</span>      <span class=p>=</span> <span class=s2>&#34;$resourceAppIdUri&#34;</span>
+<span class=ln> 7</span>    <span class=n>client_id</span>     <span class=p>=</span> <span class=s2>&#34;$appId&#34;</span>
+<span class=ln> 8</span>    <span class=n>client_secret</span> <span class=p>=</span> <span class=s2>&#34;$appSecret&#34;</span>
+<span class=ln> 9</span>    <span class=n>grant_type</span>    <span class=p>=</span> <span class=s1>&#39;client_credentials&#39;</span>
+<span class=ln>10</span><span class=p>}</span>
+<span class=ln>11</span><span class=nv>$authResponse</span> <span class=p>=</span> <span class=nb>Invoke-RestMethod</span> <span class=n>-Method</span> <span class=n>Post</span> <span class=n>-Uri</span> <span class=nv>$oAuthUri</span> <span class=n>-Body</span> <span class=nv>$authBody</span> <span class=n>-ErrorAction</span> <span class=n>Stop</span>
+<span class=ln>12</span><span class=c>#NOTE: This returns your access token, and below we pull out the token that will be used as the authorization token going forward. </span>
+<span class=ln>13</span><span class=nv>$token</span> <span class=p>=</span> <span class=nv>$authResponse</span><span class=p>.</span><span class=n>access_token</span>
+<span class=ln>14</span>    
+<span class=ln>15</span><span class=c>#NOTE: Build our headers to ensure we can access the information.</span>
+<span class=ln>16</span><span class=nv>$headers</span> <span class=p>=</span> <span class=p>@{</span> 
+<span class=ln>17</span>    <span class=s1>&#39;Content-Type&#39;</span> <span class=p>=</span> <span class=s1>&#39;application/json&#39;</span>
+<span class=ln>18</span>    <span class=n>Accept</span>         <span class=p>=</span> <span class=s1>&#39;application/json&#39;</span>
+<span class=ln>19</span>    <span class=n>Authorization</span>  <span class=p>=</span> <span class=s2>&#34;Bearer $token&#34;</span> 
+<span class=ln>20</span><span class=p>}</span>
+<span class=ln>21</span><span class=nv>$vulnerabilityUrl</span> <span class=p>=</span> <span class=s2>&#34;https://api-us.securitycenter.windows.com/api/vulnerabilities/machinesVulnerabilities?&#34;</span>
+<span class=ln>22</span><span class=nv>$vulnerabilityResponse</span> <span class=p>=</span> <span class=nb>Invoke-WebRequest</span> <span class=n>-Method</span> <span class=n>Get</span> <span class=n>-Uri</span> <span class=nv>$vulnerabilityUrl</span> <span class=n>-Headers</span> <span class=nv>$headers</span> <span class=n>-ErrorAction</span> <span class=n>Stop</span>
+<span class=ln>23</span><span class=nv>$vulnerabilityData</span> <span class=p>=</span> <span class=nv>$vulnerabilityResponse</span><span class=p>.</span><span class=n>Content</span> <span class=p>|</span> <span class=nb>ConvertFrom-Json</span> 
+<span class=ln>24</span>    
+<span class=ln>25</span>   
+<span class=ln>26</span><span class=nv>$machineURL</span> <span class=p>=</span> <span class=s2>&#34;https://api-us.securitycenter.windows.com/api/machines&#34;</span>
+<span class=ln>27</span><span class=nv>$machineResponse</span> <span class=p>=</span> <span class=nb>Invoke-WebRequest</span> <span class=n>-Method</span> <span class=n>Get</span> <span class=n>-Uri</span> <span class=nv>$machineURL</span> <span class=n>-Headers</span> <span class=nv>$headers</span> <span class=n>-ErrorAction</span> <span class=n>Stop</span>
+<span class=ln>28</span><span class=nv>$machineData</span> <span class=p>=</span> <span class=nv>$machineResponse</span><span class=p>.</span><span class=n>Content</span> <span class=p>|</span> <span class=nb>ConvertFrom-Json</span> 
+<span class=ln>29</span>    
+<span class=ln>30</span><span class=nv>$endingData</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=n>System</span><span class=p>.</span><span class=n>Collections</span><span class=p>.</span><span class=n>Generic</span><span class=p>.</span><span class=n>List</span><span class=no>[PsObject]</span>
+<span class=ln>31</span><span class=k>foreach</span> <span class=p>(</span><span class=nv>$machine</span> <span class=k>in</span> <span class=nv>$machineData</span><span class=p>.</span><span class=n>value</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>32</span>    <span class=nv>$MachineVulnerabilitylist</span> <span class=p>=</span> <span class=nv>$vulnerabilityData</span><span class=p>.</span><span class=n>value</span> <span class=p>|</span> <span class=nb>Where-object</span> <span class=p>{</span> <span class=nv>$_</span><span class=p>.</span><span class=n>MachineID</span> <span class=o>-eq</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>ID</span> <span class=p>}</span>
+<span class=ln>33</span>    <span class=k>foreach</span> <span class=p>(</span><span class=nv>$vulnerability</span> <span class=k>in</span> <span class=nv>$MachineVulnerabilitylist</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>34</span>        <span class=nv>$machineDataHash</span> <span class=p>=</span> <span class=no>[ordered]</span><span class=p>@{</span>
+<span class=ln>35</span>            <span class=n>MachineName</span>           <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>computerDnsName</span>
+<span class=ln>36</span>            <span class=n>MachineID</span>             <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>id</span>
+<span class=ln>37</span>            <span class=n>lastSeen</span>              <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>lastSeen</span>
+<span class=ln>38</span>            <span class=n>OSPlatform</span>            <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>osPlatform</span>
+<span class=ln>39</span>            <span class=n>version</span>               <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>version</span>
+<span class=ln>40</span>            <span class=n>agentVersion</span>          <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>agentVersion</span>
+<span class=ln>41</span>            <span class=n>osBuild</span>               <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>osBuild</span>
+<span class=ln>42</span>            <span class=n>isaadJoined</span>           <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>isAadJoined</span>
+<span class=ln>43</span>            <span class=n>lastIpAddress</span>         <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>lastIpAddress</span>
+<span class=ln>44</span>            <span class=n>lastExternalIpAddress</span> <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>lastExternalIpAddress</span>
+<span class=ln>45</span>            <span class=n>healthstatus</span>          <span class=p>=</span> <span class=nv>$machine</span><span class=p>.</span><span class=n>healthStatus</span>
+<span class=ln>46</span>            <span class=n>CVE</span>                   <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>cveID</span>
+<span class=ln>47</span>            <span class=n>productName</span>           <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>productName</span>
+<span class=ln>48</span>            <span class=n>productVendor</span>         <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>productVendor</span>
+<span class=ln>49</span>            <span class=n>productVersion</span>        <span class=p>=</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>Version</span>
+<span class=ln>50</span>            <span class=n>fixingKBID</span>            <span class=p>=</span> <span class=p>$(</span><span class=k>if</span> <span class=p>(</span><span class=nv>$null</span> <span class=o>-eq</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>fixingKBID</span><span class=p>)</span> <span class=p>{</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>fixingKbId</span> <span class=p>};</span> <span class=k>if</span> <span class=p>(</span><span class=nv>$null</span> <span class=o>-ne</span> <span class=nv>$vulnerability</span><span class=p>.</span><span class=n>fixingKBID</span><span class=p>)</span> <span class=p>{</span> <span class=s2>&#34;KB</span><span class=p>$(</span><span class=nv>$vulnerability</span><span class=p>.</span><span class=n>FixingKBID</span><span class=p>)</span><span class=s2>&#34;</span> <span class=p>})</span>
+<span class=ln>51</span>        <span class=p>}</span>
+<span class=ln>52</span>        <span class=nv>$vuln</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-typename</span> <span class=n>PSobject</span> <span class=n>-property</span> <span class=nv>$machineDataHash</span>
+<span class=ln>53</span>        <span class=nv>$endingData</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=nv>$vuln</span><span class=p>)</span> <span class=p>|</span> <span class=nb>Out-Null</span>
+<span class=ln>54</span>    <span class=p>}</span>
+<span class=ln>55</span><span class=p>}</span>
+</code></pre></div><p>I am still testing how fast it takes to do a remediation of something like – installing an update before it shows up in the defender portal as no longer a vulnerability.</p>
+<p>I hope this was helpful and happy patching.</p>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2021-01-28</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/ data-title="Query Defender for Endpoint Part 1" data-via=@JordanTheITGuy data-hashtags=PowerShell><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/ data-hashtag=PowerShell><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/ data-title="Query Defender for Endpoint Part 1" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/><i class="fab fa-reddit fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/powershell/>PowerShell</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/to-do-with-siri/ class=prev rel=prev title="To Do With Siri"><i class="fas fa-angle-left fa-fw"></i>To Do With Siri</a>
+<a href=/posts/query-defender-for-endpoint-part-2/ class=next rel=next title="Query Defender for Endpoint Part 2">Query Defender for Endpoint Part 2<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Jordan Benzing</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</html>

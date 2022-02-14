@@ -1,0 +1,198 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>Query Defender for Endpoint Part 2 - JordanTheITGuy</title><meta name=Description content="Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled"><meta property="og:title" content="Query Defender for Endpoint Part 2">
+<meta property="og:description" content="Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-06-28T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-06-28T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Query Defender for Endpoint Part 2">
+<meta name=twitter:description content="Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled">
+<meta name=application-name content="JordanTheITGuy">
+<meta name=apple-mobile-web-app-title content="JordanTheITGuy"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/><link rel=prev href=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-1/><link rel=next href=http://preview.jordantheitguy.com/posts/automatic-deployment-rule-update-id-translation/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Query Defender for Endpoint Part 2","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/posts\/query-defender-for-endpoint-part-2\/"},"genre":"posts","keywords":"PowerShell, Security","wordcount":811,"url":"http:\/\/preview.jordantheitguy.com\/posts\/query-defender-for-endpoint-part-2\/","datePublished":"2021-06-28T00:00:00+00:00","dateModified":"2021-06-28T00:00:00+00:00","publisher":{"@type":"Organization","name":"Jordan Benzing"},"author":{"@type":"Person","name":"Jordan Benzing"},"description":"Defender for Endpoint making a Client Secret to access Data, can sometimes be useful if properly controlled"}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':''==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:''==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Query Defender for Endpoint Part 2</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author>Jordan Benzing</a></span>&nbsp;<span class=post-category>included in <a href=/categories/security/><i class="far fa-folder fa-fw"></i>Security</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-06-28>2021-06-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;811 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#what-is-an-azure-app-registration>What is an Azure App Registration</a></li>
+<li><a href=#azure-app-registration-requirements>Azure App Registration Requirements</a></li>
+<li><a href=#creating-an-app-registration-for-defender-for-endpoint>Creating an App Registration for Defender for Endpoint</a>
+<ul>
+<li><a href=#creating-a-registration>Creating a registration</a></li>
+<li><a href=#permissions-for-the-app>Permissions for the App</a></li>
+<li><a href=#creating-a-key-aka-a-secret>Creating a Key AKA a Secret</a></li>
+<li><a href=#validation>Validation</a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><div class=content id=content><h1 id=part-two-on-getting-data-from-defender-for-endpoint>Part Two on Getting Data from Defender for Endpoint</h1>
+<p>This blog is the second post in a multipart series on how to get data from Defender for endpoint and analyze the patching data that is returned. Previously, we covered how to build a token, and request data from the Defender for endpoint API. This time we will cover how to create an azure app registration that allows the minimum required permissions to gather this data.</p>
+<p>To refresh your memory on what data, and how we would acquire said data, give a read back over part one.</p>
+<h2 id=what-is-an-azure-app-registration>What is an Azure App Registration</h2>
+<p>An azure app registration, can be a rather exhaustive conversation. The core usage is to provide authentication to allow a user, or a service access to an azure tenant. Azure app registrations have changed over the years. This includes changes to the authentication library they use, and the granularity of permissions they allow.</p>
+<h2 id=azure-app-registration-requirements>Azure App Registration Requirements</h2>
+<p>To create an azure app registration in a tenant you need some special permissions. You need to not only be able to create the app registration, but you also need to be able to approve the usage of those permissions in your organization. To do this, you will need one of three different roles.</p>
+<ul>
+<li><a href=https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#application-administrator target=_blank rel="noopener noreffer">Application Administrator</a></li>
+<li><a href=https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#application-developer target=_blank rel="noopener noreffer">Application Developer</a></li>
+<li><a href=https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#cloud-application-administrator target=_blank rel="noopener noreffer">Cloud Application Administrator</a></li>
+</ul>
+<p>You can read more about quickly setting up any type of app registration <a href=https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app target=_blank rel="noopener noreffer">here</a>:</p>
+<h2 id=creating-an-app-registration-for-defender-for-endpoint>Creating an App Registration for Defender for Endpoint</h2>
+<p>Lets walk through the process to create an azure registration that we could use to complete the earlier released post. To register, you will first need to login at portal.azure.com and then navigate to app registrations.</p>
+<h3 id=creating-a-registration>Creating a registration</h3>
+<p>This will then launch the AAD registered apps portal, and launch the applications list blade. From here you can create a new registration, see existing registrations or troubleshoot issues. If you are not familiar with this section, this is also where you would see how your CMG connects to Azure, desktop analytics and more.</p>
+<p>For this, we will simply select &lsquo;New Registration&rsquo;</p>
+<p>Selecting this will open the window to start creating a new registration.</p>
+<p>Creating a registration is pretty simple, just enter a name choose the scope of who can use it and give it a name.
+For our example, I have given the app a name ‘Defender For Endpoint API. Once you click register at the bottom of the screen you will then be presented with a small box in the top right once the app is created.</p>
+<h3 id=permissions-for-the-app>Permissions for the App</h3>
+<p>Once the application exists we are ready to start adding permissions to the application.</p>
+<p>Before we add any permission we can go ahead and remove the User.Read permission as we will not need it. To do this click the three dots on the far right and select delete.</p>
+<p>We can do so by using the add a permission button under the API permissions node.</p>
+<p>This will then launch the request API permissions section.</p>
+<p>From this section select the option &lsquo;APIs my organization uses&rsquo;</p>
+<p>This will then let you search a lot of the build in API’s that are available in the portal. We want to search for Windows Defender ATP.</p>
+<p>Then we will want to select Application Permissions to ensure that the PowerShell script only requires a token, and not a login. We could of course do a login, but this way we can use the token for automation purposes later.</p>
+<p>Choose the type of authentication
+We can then search for the three permissions we need</p>
+<p>Machine.Read.All
+Software.Read.All
+Vulnerability.Read.All
+Once each of these permissions has been found, and checked, select add permissions at the bottom of the page.</p>
+<p>Once completed it will look like this, and you will need to then grant admin consent.</p>
+<p>Granting Admin Consent will pop up a box to confirm that you would like to grant these permissions.</p>
+<p>At this time the permissions are set now we just need to create a key!</p>
+<h3 id=creating-a-key-aka-a-secret>Creating a Key AKA a Secret</h3>
+<p>First we will navigate to the certificates and secrets section.</p>
+<p>Next we can create a new client secret, note for improved security usage of a certificate is also recommended for identity validation.</p>
+<p>This will then open the Add a client secret window. Select a time frame for the secrets expiration. I would recommend no more than 12 months. And select Add.</p>
+<p>This will then generate the client secret ID and the value for the secret.</p>
+<div class="details admonition warning">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-exclamation-triangle fa-fw"></i>Make sure you save this..<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content><strong>IMPORTANT:</strong> Once you leave this screen the value is hidden and cannot be recovered, securely store this value.</div>
+</div>
+</div>
+<p>Get your tokens
+That’s it the secret is now generated and now we can move on to testing!</p>
+<h3 id=validation>Validation</h3>
+<p>A quick stroll back to part 1 to grab the script is all we need. We then plug in, the tenant ID, application ID, and the secret.</p>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2021-06-28</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/ data-title="Query Defender for Endpoint Part 2" data-via=@JordanTheITGuy data-hashtags=PowerShell,Security><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/ data-hashtag=PowerShell><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/ data-title="Query Defender for Endpoint Part 2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=http://preview.jordantheitguy.com/posts/query-defender-for-endpoint-part-2/><i class="fab fa-reddit fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/powershell/>PowerShell</a>,&nbsp;<a href=/tags/security/>Security</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/query-defender-for-endpoint-part-1/ class=prev rel=prev title="Query Defender for Endpoint Part 1"><i class="fas fa-angle-left fa-fw"></i>Query Defender for Endpoint Part 1</a>
+<a href=/posts/automatic-deployment-rule-update-id-translation/ class=next rel=next title="Automatic Deployment Rule   Update ID Translation">Automatic Deployment Rule Update ID Translation<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Jordan Benzing</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</html>

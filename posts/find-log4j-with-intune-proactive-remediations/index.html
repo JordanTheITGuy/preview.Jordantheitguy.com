@@ -1,0 +1,284 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>Find Log4J With Intune Proactive Remediations - JordanTheITGuy</title><meta name=Description content="How to find potentially risk files with LOG4J risks"><meta property="og:title" content="Find Log4J With Intune Proactive Remediations">
+<meta property="og:description" content="How to find potentially risk files with LOG4J risks">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-12-17T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-12-17T00:00:00+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Find Log4J With Intune Proactive Remediations">
+<meta name=twitter:description content="How to find potentially risk files with LOG4J risks">
+<meta name=application-name content="JordanTheITGuy">
+<meta name=apple-mobile-web-app-title content="JordanTheITGuy"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/><link rel=prev href=http://preview.jordantheitguy.com/posts/automatic-deployment-rule-update-id-translation/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Find Log4J With Intune Proactive Remediations","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/posts\/find-log4j-with-intune-proactive-remediations\/"},"genre":"posts","keywords":"PowerShell","wordcount":1672,"url":"http:\/\/preview.jordantheitguy.com\/posts\/find-log4j-with-intune-proactive-remediations\/","datePublished":"2021-12-17T00:00:00+00:00","dateModified":"2021-12-17T00:00:00+00:00","publisher":{"@type":"Organization","name":"Jordan Benzing"},"author":{"@type":"Person","name":"Jordan Benzing"},"description":"How to find potentially risk files with LOG4J risks"}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':''==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:''==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Find Log4J With Intune Proactive Remediations</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author>Jordan Benzing</a></span>&nbsp;<span class=post-category>included in <a href=/categories/intune/><i class="far fa-folder fa-fw"></i>Intune</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-12-17>2021-12-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1672 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;8 minutes&nbsp;</div>
+</div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/images/blogPosts/MakeScriptPackage.png data-srcset="/images/blogPosts/MakeScriptPackage.png, /images/blogPosts/MakeScriptPackage.png 1.5x, /images/blogPosts/MakeScriptPackage.png 2x" data-sizes=auto alt=/images/blogPosts/MakeScriptPackage.png title="How to find potentially risk files with LOG4J risks"></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#vulnerability-hunting-vs-exploit-hunting>Vulnerability Hunting V.S. Exploit Hunting</a></li>
+<li><a href=#what-can-you-do-today-with-intune-proactive-remediations>What can you do today with Intune Proactive Remediations?</a></li>
+<li><a href=#the-script-for-the-proactive-remediation>The Script for the Proactive Remediation</a>
+<ul>
+<li><a href=#initial-gathering-of-drives>Initial Gathering of Drives</a></li>
+<li><a href=#gather-risky-files>Gather Risky Files</a></li>
+</ul>
+</li>
+<li><a href=#closing-thoughts>Closing Thoughts</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>On December 10th 2021 CVE-2021-44228 was unveiled- queue the mass panic. A simple logging component which had been around for… forever in a whole bunch of things including but not limited to Minecraft.</p>
+<p>Update: February 6th 2022 - It&rsquo;s worth nothing that even now three months later this vulnerability is still having massive impact all over the world as the threat hunting methods originally devised were limited in their nature. In fact, we have even seen cases where grey hat hackers were using the exploit to patch the exploit.</p>
+<h2 id=vulnerability-hunting-vs-exploit-hunting>Vulnerability Hunting V.S. Exploit Hunting</h2>
+<div class="details admonition danger open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-skull-crossbones fa-fw"></i>DANGER: READ THIS<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content><strong>Before you read any further, let me be clear, finding a “file” that has or is vulnerable to this exploit this is not the end of dealing with this vulnerability. I have tried to cover all the scenarios I can think of, however I am not a genius and there is no way to write this for every possible scenario. It’s one half of the whole. You absolutely need to start continuously hunting for the behaviors attackers would use this class for, while constantly checking for the existence of it in your environment.</strong></div>
+</div>
+</div>
+<p>Hunting this threat is in and of itself challenging.</p>
+<p>When the vulnerability first came out there were several scripts that floated around the internet geared towards hunting the hashes of the vulnerable files. However as things continued to develop people started to ask – do these hashes change if someone nests a JAR inside a JAR? Additionally, what if an attacker changes the name of the product or the class is referenced in another JAR? And how do we tell the difference between something that is just not updated, and something being exploited? For more reading on that I suggest the following MSTIC team articles:</p>
+<p><a href=https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/how-defender-for-cloud-displays-machines-affected-by-log4j/ba-p/3037271 target=_blank rel="noopener noreffer">Defender for Cloud finds machines affected by Log4j vulnerabilities</a></p>
+<p><a href=https://msrc-blog.microsoft.com/2021/12/11/microsofts-response-to-cve-2021-44228-apache-log4j2/ target=_blank rel="noopener noreffer">Microsoft’s Response to CVE-2021-44228 Apache Log4j 2 – Microsoft Security Response Center</a></p>
+<h2 id=what-can-you-do-today-with-intune-proactive-remediations>What can you do today with Intune Proactive Remediations?</h2>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/blogPosts/MakeScriptPackage.png data-srcset="/images/blogPosts/MakeScriptPackage.png, /images/blogPosts/MakeScriptPackage.png 1.5x, /images/blogPosts/MakeScriptPackage.png 2x" data-sizes=auto alt=/images/blogPosts/MakeScriptPackage.png title=Example></p>
+<p>In Configuration Manager we have CI’s and they work amazingly well for hunting the state, and contents of specific files.</p>
+<p>I’m going to put a second disclaimer here, don’t use this script as an end all to everything. There is no one size fits all for this vulnerability, and in fact just saying “we patched all good” might not even be good enough for a while. Since last week, I’ve written three or four different methods to try and detect “do we need to patch this vulnerability.” All three of these methods have different pros’s and cons based on number of files, age of device, and are you looking for obfuscations. In general people have landed on three main different methods.</p>
+<ul>
+<li>Hash Validation, based on file name</li>
+<li>File Name Detection</li>
+<li>File Extension Detection and Class Validation</li>
+</ul>
+<p>The script I’m going to show uses the last of these three options. All of these have their own unique pro’s and con’s. I could spend hours on these, but I don’t think that’s why you’re here if this is something you’re interested in let me know and maybe I’ll do some type of follow up.</p>
+<p>If you’ve never created a Proactive Remediation before, rejoice because the most complicated part of creating one, is finding where they are located.</p>
+<h2 id=the-script-for-the-proactive-remediation>The Script for the Proactive Remediation</h2>
+<p>This article assumes you know how to create a proactive remediation, and will only be covering an explanation on the script used for detection.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span><span class=c>#Warning on potentially could scan synced sharepoint libraries.</span>
+<span class=ln> 1</span>
+<span class=ln> 2</span><span class=c>#Note this is using CIM instance - this will NOT work for old Servers and is not intended to be used on them.</span>
+<span class=ln> 3</span>
+<span class=ln> 4</span><span class=nv>$drives</span> <span class=p>=</span> <span class=p>(</span><span class=nb>Get-CimInstance</span> <span class=n>-Query</span> <span class=s2>&#34;Select DeviceID from win32_logicaldisk where drivetype = 3&#34;</span><span class=p>).</span><span class=n>DeviceID</span>
+<span class=ln> 5</span>
+<span class=ln> 6</span><span class=c>#Set the search string we are hunting for.</span>
+<span class=ln> 7</span><span class=nv>$searchString</span> <span class=p>=</span> <span class=s2>&#34;*.jar&#34;</span>
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c>#Add type for reading the JarFiles </span>
+<span class=ln>10</span><span class=nb>Add-Type</span> <span class=n>-AssemblyName</span> <span class=s2>&#34;system.io.compression.filesystem&#34;</span>
+<span class=ln>11</span><span class=c>#Create an object to store found risks</span>
+<span class=ln>12</span>
+<span class=ln>13</span><span class=nv>$foundRisks</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=s1>&#39;System.Collections.Generic.List[psobject]&#39;</span>
+<span class=ln>14</span><span class=k>Foreach</span> <span class=p>(</span><span class=nv>$drive</span> <span class=k>in</span> <span class=nv>$drives</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>15</span>    <span class=c>#Assemble the risky files for the drive.</span>
+<span class=ln>16</span>    <span class=nv>$riskyFiles</span> <span class=p>=</span> <span class=p>(&amp;</span><span class=n>cmd</span> <span class=p>/</span><span class=n>c</span> <span class=n>robocopy</span> <span class=p>/</span><span class=n>l</span> <span class=p>$((</span><span class=nv>$drive</span><span class=p>)</span> <span class=p>+</span> <span class=s1>&#39;\&#39;</span><span class=p>)</span> <span class=n>null</span> <span class=s2>&#34;$searchString&#34;</span> <span class=p>/</span><span class=n>ns</span> <span class=p>/</span><span class=n>njh</span> <span class=p>/</span><span class=n>njs</span> <span class=p>/</span><span class=n>np</span> <span class=p>/</span><span class=n>nc</span> <span class=p>/</span><span class=n>ndl</span> <span class=p>/</span><span class=n>xjd</span> <span class=p>/</span><span class=n>mt</span> <span class=p>/</span><span class=n>s</span><span class=p>).</span><span class=n>trim</span><span class=p>()</span> <span class=p>|</span> <span class=nb>Where-Object</span> <span class=p>{</span> <span class=nv>$_</span> <span class=o>-ne</span> <span class=s2>&#34;&#34;</span> <span class=p>}</span>
+<span class=ln>17</span>    <span class=c>#Evaluate each set of risky files to see if there is anything to Evaluate.</span>
+<span class=ln>18</span>    <span class=k>Foreach</span> <span class=p>(</span><span class=nv>$file</span> <span class=k>in</span> <span class=nv>$riskyFiles</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>19</span>                <span class=nv>$data</span> <span class=p>=</span> <span class=nv>$null</span>
+<span class=ln>20</span>                <span class=nv>$detections</span> <span class=p>=</span> <span class=nv>$null</span>
+<span class=ln>21</span>                <span class=k>try</span><span class=p>{</span>
+<span class=ln>22</span>                    <span class=c>#Warning this could could potentially create a lock on a Jar file - we do dispose of the connection and read at the end but based on size it could take a moment.</span>
+<span class=ln>23</span>                    <span class=nv>$data</span> <span class=p>=</span> <span class=no>[io.Compression.Zipfile]</span><span class=p>::</span><span class=n>openRead</span><span class=p>(</span><span class=nv>$file</span><span class=p>)</span>
+<span class=ln>24</span>                    <span class=nv>$detections</span> <span class=p>=</span> <span class=nv>$data</span><span class=p>.</span><span class=n>Entries</span> <span class=p>|</span> <span class=nb>Where-Object</span> <span class=p>{</span><span class=nv>$_</span><span class=p>.</span><span class=n>fullname</span> <span class=o>-like</span> <span class=s2>&#34;*jndiLookup.class&#34;</span><span class=p>}</span>
+<span class=ln>25</span>                    <span class=nv>$data</span><span class=p>.</span><span class=n>Dispose</span><span class=p>()</span>
+<span class=ln>26</span>                <span class=p>}</span>
+<span class=ln>27</span>                <span class=k>catch</span><span class=p>{</span>
+<span class=ln>28</span>                    <span class=nv>$hash</span> <span class=p>=</span> <span class=no>[ordered]</span><span class=p>@{</span>
+<span class=ln>29</span>                        <span class=n>fileName</span> <span class=p>=</span> <span class=nv>$file</span>
+<span class=ln>30</span>                        <span class=n>class</span> <span class=p>=</span> <span class=s2>&#34;UnableToRead&#34;</span>
+<span class=ln>31</span>                        <span class=n>fileHash</span> <span class=p>=</span> <span class=p>$((</span><span class=nb>Get-FileHash</span> <span class=n>-Path</span> <span class=nv>$file</span> <span class=n>-Algorithm</span> <span class=n>SHA256</span><span class=p>).</span><span class=n>Hash</span><span class=p>)</span>
+<span class=ln>32</span>                    <span class=p>}</span>
+<span class=ln>33</span>                    <span class=nv>$foundRisks</span><span class=p>.</span><span class=n>add</span><span class=p>((</span><span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=n>psobject</span> <span class=n>-Property</span> <span class=nv>$hash</span><span class=p>))</span>
+<span class=ln>34</span>                <span class=p>}</span>
+<span class=ln>35</span>                <span class=k>if</span><span class=p>(</span><span class=nv>$detections</span><span class=p>){</span> 
+<span class=ln>36</span>                    <span class=k>foreach</span><span class=p>(</span><span class=nv>$detection</span> <span class=k>in</span> <span class=nv>$detections</span> <span class=p>){</span>
+<span class=ln>37</span>                        <span class=nv>$hash</span> <span class=p>=</span> <span class=no>[ordered]</span><span class=p>@{</span>
+<span class=ln>38</span>                            <span class=n>fileName</span> <span class=p>=</span> <span class=nv>$file</span>
+<span class=ln>39</span>                            <span class=n>class</span> <span class=p>=</span> <span class=nv>$detection</span><span class=p>.</span><span class=n>FullName</span>
+<span class=ln>40</span>                            <span class=n>fileHash</span> <span class=p>=</span> <span class=p>$((</span><span class=nb>Get-FileHash</span> <span class=n>-Path</span> <span class=nv>$file</span> <span class=n>-Algorithm</span> <span class=n>SHA256</span><span class=p>).</span><span class=n>Hash</span><span class=p>)</span>
+<span class=ln>41</span>                        <span class=p>}</span>
+<span class=ln>42</span>                        <span class=nv>$foundRisks</span><span class=p>.</span><span class=n>add</span><span class=p>((</span><span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=n>psobject</span> <span class=n>-Property</span> <span class=nv>$hash</span><span class=p>))</span>
+<span class=ln>43</span>                    <span class=p>}</span>
+<span class=ln>44</span>                <span class=p>}</span>
+<span class=ln>45</span>            <span class=p>}</span>
+<span class=ln>46</span>            
+<span class=ln>47</span>        <span class=p>}</span>
+<span class=ln>48</span><span class=k>If</span> <span class=p>($(</span><span class=nv>$foundRisks</span> <span class=p>|</span> <span class=nb>Measure-Object</span><span class=p>).</span><span class=n>count</span> <span class=o>-ge</span> <span class=n>1</span><span class=p>)</span> <span class=p>{</span> 
+<span class=ln>49</span>    <span class=k>foreach</span><span class=p>(</span><span class=nv>$risk</span> <span class=k>in</span> <span class=nv>$foundRisks</span><span class=p>){</span>
+<span class=ln>50</span>        <span class=c>#Assemble a Single Large Write Host Command for PR</span>
+<span class=ln>51</span>        <span class=nv>$jumboTune</span> <span class=p>=</span> <span class=s2>&#34;$jumboTune Found: </span><span class=p>$(</span><span class=nv>$risk</span><span class=p>.</span><span class=n>FileName</span><span class=p>)</span><span class=s2> with Hash:</span><span class=p>$(</span><span class=nv>$risk</span><span class=p>.</span><span class=n>fileHash</span><span class=p>)</span><span class=s2> and Class: </span><span class=p>$(</span><span class=nv>$risk</span><span class=p>.</span><span class=n>class</span><span class=p>)</span><span class=se>`n</span><span class=s2>&#34;</span>
+<span class=ln>52</span>    <span class=p>}</span>
+<span class=ln>53</span>    <span class=nb>Write-Host</span> <span class=nv>$jumboTune</span>
+<span class=ln>54</span>    <span class=n>exit</span> <span class=n>1</span>
+<span class=ln>55</span><span class=p>}</span>
+<span class=ln>56</span><span class=k>Else</span> <span class=p>{</span> 
+<span class=ln>57</span>    <span class=nb>Write-Host</span> <span class=s2>&#34;No Vulnerabilities found&#34;</span>
+<span class=ln>58</span>    <span class=n>exit</span> <span class=n>0</span>
+<span class=ln>59</span><span class=p>}</span>
+</code></pre></div><p>What’s so special about this script? Well, it’s fast. No seriously it’s REALLY fast. We are talking evaluate every file in 600GB in ~19 seconds fast. Most of this is thanks to Robocopy.</p>
+<p>Now let’s break down the code and what’s happening here.</p>
+<h3 id=initial-gathering-of-drives>Initial Gathering of Drives</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln>0</span><span class=c>#Note this is using CIM instance - this will NOT work for old Servers and is not intended to be used on them.</span>
+<span class=ln>1</span><span class=nv>$drives</span> <span class=p>=</span> <span class=p>(</span><span class=nb>Get-CimInstance</span> <span class=n>-Query</span> <span class=s2>&#34;Select DeviceID from win32_logicaldisk where drivetype = 3&#34;</span><span class=p>).</span><span class=n>DeviceID</span>
+<span class=ln>2</span><span class=c>#Set the search string we are hunting for.</span>
+<span class=ln>3</span><span class=nv>$searchString</span> <span class=p>=</span> <span class=s2>&#34;*.jar&#34;</span>
+<span class=ln>4</span><span class=c>#Add type for reading the JarFiles </span>
+<span class=ln>5</span><span class=nb>Add-Type</span> <span class=n>-AssemblyName</span> <span class=s2>&#34;system.io.compression.filesystem&#34;</span>
+<span class=ln>6</span><span class=c>#Create an object to store found risks</span>
+<span class=ln>7</span><span class=nv>$foundRisks</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=s1>&#39;System.Collections.Generic.List[psobject]&#39;</span>
+</code></pre></div><p>Nothing fancy here, just know that this is using CIM instance, assuming you’re using this script in Intune, you should only have machines that support this command. Additionally we set our search string – in this case anything that ends with “*.jar”. We add a type assemble – more on that later, and then create a list of PSObjects. Didn’t have to do that, but I like to use lists it’s a habit from when I’m not sure what version of PowerShell is in play.</p>
+<p>We then iterate over each drive and do the following:</p>
+<h3 id=gather-risky-files>Gather Risky Files</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span><span class=nv>$riskyFiles</span> <span class=p>=</span> <span class=p>(&amp;</span><span class=n>cmd</span> <span class=p>/</span><span class=n>c</span> <span class=n>robocopy</span> <span class=p>/</span><span class=n>l</span> <span class=p>$((</span><span class=nv>$drive</span><span class=p>)</span> <span class=p>+</span> <span class=s1>&#39;\&#39;</span><span class=p>)</span> <span class=n>null</span> <span class=s2>&#34;$searchString&#34;</span> <span class=p>/</span><span class=n>ns</span> <span class=p>/</span><span class=n>njh</span> <span class=p>/</span><span class=n>njs</span> <span class=p>/</span><span class=n>np</span> <span class=p>/</span><span class=n>nc</span> <span class=p>/</span><span class=n>ndl</span> <span class=p>/</span><span class=n>xjd</span> <span class=p>/</span><span class=n>mt</span> <span class=p>/</span><span class=n>s</span><span class=p>).</span><span class=n>trim</span><span class=p>()</span> <span class=p>|</span> <span class=nb>Where-Object</span> <span class=p>{</span> <span class=nv>$_</span> <span class=o>-ne</span> <span class=s2>&#34;&#34;</span> <span class=p>}</span>
+<span class=ln> 1</span>    <span class=c>#Evaluate each set of risky files to see if there is anything to Evaluate.</span>
+<span class=ln> 2</span>    <span class=k>Foreach</span> <span class=p>(</span><span class=nv>$file</span> <span class=k>in</span> <span class=nv>$riskyFiles</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln> 3</span>                <span class=nv>$data</span> <span class=p>=</span> <span class=nv>$null</span>
+<span class=ln> 4</span>                <span class=nv>$detections</span> <span class=p>=</span> <span class=nv>$null</span>
+<span class=ln> 5</span>                <span class=k>try</span><span class=p>{</span>
+<span class=ln> 6</span>                    <span class=c>#Warning this could could potentially create a lock on a Jar file - we do dispose of the connection and read at the end but based on size it could take a moment.</span>
+<span class=ln> 7</span>                    <span class=nv>$data</span> <span class=p>=</span> <span class=no>[io.Compression.Zipfile]</span><span class=p>::</span><span class=n>openRead</span><span class=p>(</span><span class=nv>$file</span><span class=p>)</span>
+<span class=ln> 8</span>                    <span class=nv>$detections</span> <span class=p>=</span> <span class=nv>$data</span><span class=p>.</span><span class=n>Entries</span> <span class=p>|</span> <span class=nb>Where-Object</span> <span class=p>{</span><span class=nv>$_</span><span class=p>.</span><span class=n>fullname</span> <span class=o>-like</span> <span class=s2>&#34;*jndiLookup.class&#34;</span><span class=p>}</span>
+<span class=ln> 9</span>                    <span class=nv>$data</span><span class=p>.</span><span class=n>Dispose</span><span class=p>()</span>
+<span class=ln>10</span>                <span class=p>}</span>
+<span class=ln>11</span>                <span class=k>catch</span><span class=p>{</span>
+<span class=ln>12</span>                    <span class=nv>$hash</span> <span class=p>=</span> <span class=no>[ordered]</span><span class=p>@{</span>
+<span class=ln>13</span>                        <span class=n>fileName</span> <span class=p>=</span> <span class=nv>$file</span>
+<span class=ln>14</span>                        <span class=n>class</span> <span class=p>=</span> <span class=s2>&#34;UnableToRead&#34;</span>
+<span class=ln>15</span>                        <span class=n>fileHash</span> <span class=p>=</span> <span class=p>$((</span><span class=nb>Get-FileHash</span> <span class=n>-Path</span> <span class=nv>$file</span> <span class=n>-Algorithm</span> <span class=n>SHA256</span><span class=p>).</span><span class=n>Hash</span><span class=p>)</span>
+<span class=ln>16</span>                    <span class=p>}</span>
+<span class=ln>17</span>                    <span class=nv>$foundRisks</span><span class=p>.</span><span class=n>add</span><span class=p>((</span><span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=n>psobject</span> <span class=n>-Property</span> <span class=nv>$hash</span><span class=p>))</span>
+<span class=ln>18</span>                <span class=p>}</span>
+</code></pre></div><p>The first line leverages Robocopy, to gather only the string to file names using the /l command and some other switches to turn off the noise and speed ups the process of gathering the files. This then provides a list full of files with “*.Jar” at the end.</p>
+<p>Now it’s time to go to work. We use the IO.Compression.ZipFile class to open and read the contents of each of the .JAR file. We then look at all of the “entries” for anything that has the jndiLookup.class.</p>
+<p>We look for this, because if we find the class, we can be reasonable sure regardless of if there is a hash match, or if the file names don’t match that the machine is potentially at risk.</p>
+<p>We then add some important bits like where the file is located and it’s hash to our storage and continue on.</p>
+<p>We could just as easily swap this out for any of the other methods, validating if the .jar matches the known hash lists, or just reporting based on the name of the jar.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln> 0</span><span class=k>If</span> <span class=p>($(</span><span class=nv>$foundRisks</span> <span class=p>|</span> <span class=nb>Measure-Object</span><span class=p>).</span><span class=n>count</span> <span class=o>-ge</span> <span class=n>1</span><span class=p>)</span> <span class=p>{</span> 
+<span class=ln> 1</span>    <span class=k>foreach</span><span class=p>(</span><span class=nv>$risk</span> <span class=k>in</span> <span class=nv>$foundRisks</span><span class=p>){</span>
+<span class=ln> 2</span>        <span class=c>#Assemble a Single Large Write Host Command for PR</span>
+<span class=ln> 3</span>        <span class=nv>$jumboTune</span> <span class=p>=</span> <span class=s2>&#34;$jumboTune Found: </span><span class=p>$(</span><span class=nv>$risk</span><span class=p>.</span><span class=n>FileName</span><span class=p>)</span><span class=s2> with Hash:</span><span class=p>$(</span><span class=nv>$risk</span><span class=p>.</span><span class=n>fileHash</span><span class=p>)</span><span class=s2> and Class: </span><span class=p>$(</span><span class=nv>$risk</span><span class=p>.</span><span class=n>class</span><span class=p>)</span><span class=se>`n</span><span class=s2>&#34;</span>
+<span class=ln> 4</span>    <span class=p>}</span>
+<span class=ln> 5</span>    <span class=nb>Write-Host</span> <span class=nv>$jumboTune</span>
+<span class=ln> 6</span>    <span class=n>exit</span> <span class=n>1</span>
+<span class=ln> 7</span><span class=p>}</span>
+<span class=ln> 8</span><span class=k>Else</span> <span class=p>{</span> 
+<span class=ln> 9</span>    <span class=nb>Write-Host</span> <span class=s2>&#34;No Vulnerabilities found&#34;</span>
+<span class=ln>10</span>    <span class=n>exit</span> <span class=n>0</span>
+<span class=ln>11</span><span class=p>}</span>
+</code></pre></div><p>Finally here at the end we compound together the names of the potentially vulnerable files, and write them to the host screen before existing with Exit Code 1 to properly send “risk” back to Intune.</p>
+<p>Once the script runs based you should get some nice outputs which you can then use to evaluate and start to make decisions on what should or shouldn’t be remediated. Keep in mind this doesn’t fix the issue as fixes will continue to evolve. This just helps you identify the problem. Here is an example of what the output looks like on my home machines, which happened to have an old copy of Minecraft on it.</p>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/blogPosts/log4JFound.png data-srcset="/images/blogPosts/log4JFound.png, /images/blogPosts/log4JFound.png 1.5x, /images/blogPosts/log4JFound.png 2x" data-sizes=auto alt=/images/blogPosts/log4JFound.png title=img></p>
+<h2 id=closing-thoughts>Closing Thoughts</h2>
+<p>I urge you to keep in mind that this is an evolving threat. The first “patch” to remediate the CVE was found to not always work. The second one encouraged people to just flat out remove the jndi lookup.class from the class path. I wouldn’t be surprised if we find several more things along the way. Your mileage may vary on how you look for vulnerability and I encourage you to think about what you are hunting for. Happy Patching.</p>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2021-12-17</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/ data-title="Find Log4J With Intune Proactive Remediations" data-via=@JordanTheITGuy data-hashtags=PowerShell><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/ data-hashtag=PowerShell><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/ data-title="Find Log4J With Intune Proactive Remediations" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/><i class="fab fa-reddit fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/powershell/>PowerShell</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/automatic-deployment-rule-update-id-translation/ class=prev rel=prev title="Automatic Deployment Rule   Update ID Translation"><i class="fas fa-angle-left fa-fw"></i>Automatic Deployment Rule Update ID Translation</a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Jordan Benzing</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</html>
