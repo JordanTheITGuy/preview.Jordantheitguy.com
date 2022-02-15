@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
 <meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
-<title>Find Log4J With Intune Proactive Remediations - JordanTheITGuy</title><meta name=Description content="How to find potentially risk files with LOG4J risks"><meta property="og:title" content="Find Log4J With Intune Proactive Remediations">
+<title>Find Log4J With Intune Proactive Remediations - JordanTheITGuy</title><meta name=description content="How to find potentially risk files with LOG4J risks"><meta property="og:title" content="Find Log4J With Intune Proactive Remediations">
 <meta property="og:description" content="How to find potentially risk files with LOG4J risks">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/"><meta property="article:section" content="posts">
@@ -17,7 +17,7 @@
 <meta name=apple-mobile-web-app-title content="JordanTheITGuy"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://preview.jordantheitguy.com/posts/find-log4j-with-intune-proactive-remediations/><link rel=prev href=http://preview.jordantheitguy.com/posts/automatic-deployment-rule-update-id-translation/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Find Log4J With Intune Proactive Remediations","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/posts\/find-log4j-with-intune-proactive-remediations\/"},"genre":"posts","keywords":"PowerShell","wordcount":1672,"url":"http:\/\/preview.jordantheitguy.com\/posts\/find-log4j-with-intune-proactive-remediations\/","datePublished":"2021-12-17T00:00:00+00:00","dateModified":"2021-12-17T00:00:00+00:00","publisher":{"@type":"Organization","name":"Jordan Benzing"},"author":{"@type":"Person","name":"Jordan Benzing"},"description":"How to find potentially risk files with LOG4J risks"}</script></head>
-<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':''==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:''==='dark')&&document.body.setAttribute('theme','dark')</script>
+<body header-desktop header-mobile><script type=text/javascript>(''==='true'&&window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
 <div class=header-title>
@@ -117,8 +117,8 @@ Cancel
 </div>
 <p>Hunting this threat is in and of itself challenging.</p>
 <p>When the vulnerability first came out there were several scripts that floated around the internet geared towards hunting the hashes of the vulnerable files. However as things continued to develop people started to ask – do these hashes change if someone nests a JAR inside a JAR? Additionally, what if an attacker changes the name of the product or the class is referenced in another JAR? And how do we tell the difference between something that is just not updated, and something being exploited? For more reading on that I suggest the following MSTIC team articles:</p>
-<p><a href=https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/how-defender-for-cloud-displays-machines-affected-by-log4j/ba-p/3037271 target=_blank rel="noopener noreffer">Defender for Cloud finds machines affected by Log4j vulnerabilities</a></p>
-<p><a href=https://msrc-blog.microsoft.com/2021/12/11/microsofts-response-to-cve-2021-44228-apache-log4j2/ target=_blank rel="noopener noreffer">Microsoft’s Response to CVE-2021-44228 Apache Log4j 2 – Microsoft Security Response Center</a></p>
+<p><a href=https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/how-defender-for-cloud-displays-machines-affected-by-log4j/ba-p/3037271 target=_blank rel="noopener noreferrer">Defender for Cloud finds machines affected by Log4j vulnerabilities</a></p>
+<p><a href=https://msrc-blog.microsoft.com/2021/12/11/microsofts-response-to-cve-2021-44228-apache-log4j2/ target=_blank rel="noopener noreferrer">Microsoft’s Response to CVE-2021-44228 Apache Log4j 2 – Microsoft Security Response Center</a></p>
 <h2 id=what-can-you-do-today-with-intune-proactive-remediations>What can you do today with Intune Proactive Remediations?</h2>
 <p><img class=lazyload src=/svg/loading.min.svg data-src=/images/blogPosts/MakeScriptPackage.png data-srcset="/images/blogPosts/MakeScriptPackage.png, /images/blogPosts/MakeScriptPackage.png 1.5x, /images/blogPosts/MakeScriptPackage.png 2x" data-sizes=auto alt=/images/blogPosts/MakeScriptPackage.png title=Example></p>
 <p>In Configuration Manager we have CI’s and they work amazingly well for hunting the state, and contents of specific files.</p>
@@ -270,9 +270,11 @@ Cancel
 </div>
 <div class=post-nav><a href=/posts/automatic-deployment-rule-update-id-translation/ class=prev rel=prev title="Automatic Deployment Rule   Update ID Translation"><i class="fas fa-angle-left fa-fw"></i>Automatic Deployment Rule Update ID Translation</a></div>
 </div>
-</article></div>
+<div id=comments><div id=utterances></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
+</noscript></div></article></div>
 </main><footer class=footer>
-<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Jordan Benzing</a></span></div>
+<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">Jordan Benzing</a></span></div>
 </div>
 </footer></div>
 <div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
@@ -280,5 +282,5 @@ Cancel
 </a><a href=# id=view-comments class=fixed-button title="View Comments">
 <i class="fas fa-comment fa-fw"></i>
 </a>
-</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"title",label:"",lightTheme:"github-light",repo:"JordanTheITGuy/jordantheitguy.com-comments"}},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>

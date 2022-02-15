@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
 <meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
-<title>Protected Groups in Active Directory - JordanTheITGuy</title><meta name=Description content="What in the world are protected groups in Active Directory?"><meta property="og:title" content="Protected Groups in Active Directory">
+<title>Protected Groups in Active Directory - JordanTheITGuy</title><meta name=description content="What in the world are protected groups in Active Directory?"><meta property="og:title" content="Protected Groups in Active Directory">
 <meta property="og:description" content="What in the world are protected groups in Active Directory?">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://preview.jordantheitguy.com/posts/protected-groups-in-active-directory/"><meta property="article:section" content="posts">
@@ -17,7 +17,7 @@
 <meta name=apple-mobile-web-app-title content="JordanTheITGuy"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://preview.jordantheitguy.com/posts/protected-groups-in-active-directory/><link rel=prev href=http://preview.jordantheitguy.com/posts/powershell_get_members_of_group/><link rel=next href=http://preview.jordantheitguy.com/posts/adding-email-property-in-ad/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Protected Groups in Active Directory","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/preview.jordantheitguy.com\/posts\/protected-groups-in-active-directory\/"},"genre":"posts","keywords":"Research","wordcount":696,"url":"http:\/\/preview.jordantheitguy.com\/posts\/protected-groups-in-active-directory\/","datePublished":"2015-11-03T00:00:00+00:00","dateModified":"2015-11-03T00:00:00+00:00","publisher":{"@type":"Organization","name":"Jordan Benzing"},"author":{"@type":"Person","name":"Jordan Benzing"},"description":"What in the world are protected groups in Active Directory?"}</script></head>
-<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':''==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:''==='dark')&&document.body.setAttribute('theme','dark')</script>
+<body header-desktop header-mobile><script type=text/javascript>(''==='true'&&window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
 <div class=header-title>
@@ -103,7 +103,7 @@ The User attempting the modification is a member of a group that has been delega
 The User who is being modified is in an OU that the other user has delegated rights over.
 The Problem:</p>
 <p>In a NORMAL use case scenario this wouldn’t have come up this particular challenge arose from a specific set of circumstances. The user we were attempting to modify (We’ll call him the User) and the user doing the modifying (We’ll call him the Admin for now) was created in a DIFFERENT OU than his final resting place, and prior to being moved there he was added to a security group that was NESTED in one of the Active Directory Protected Groups.</p>
-<p>What you ask, is an active Directory Protected Group? Well let’s start by listing what they are from the <a href="https://docs.microsoft.com/en-us/previous-versions/technet-magazine/ee361593%28v=msdn.10%29?redirectedfrom=MSDN" target=_blank rel="noopener noreffer">Microsoft Technet Website</a>:</p>
+<p>What you ask, is an active Directory Protected Group? Well let’s start by listing what they are from the <a href="https://docs.microsoft.com/en-us/previous-versions/technet-magazine/ee361593%28v=msdn.10%29?redirectedfrom=MSDN" target=_blank rel="noopener noreferrer">Microsoft Technet Website</a>:</p>
 <p>So, what does this actually mean? Well when a user account is added to one of the protected groups a few things happen. For starters every hour Active Directory starts this wonderful process that looks at users that are a member of these protected groups. Then upon finding those members it reaches out and sets the AD attribute “AdminCount” to the value of 1. This signifies to ActiveDirectory that this account is an “Administrative” account and to disable inheritance on the object and to enforce the security of AdminSDHolder.</p>
 <p>The Resolution:</p>
 <p>Fortunately in this case the simple solution to achieve the desired behavior in this environment was “acceptable”. However, it doesn’t solve the problem as a whole. The simple one off solution is using active directory users and computers from a domain administrator account enable inheritance on the user object. This will allow the appropriate inherited permissions to flow down on to the user before locking the account again from being edited by delegation on OU’s. This however, is NOT a long term solution.</p>
@@ -142,9 +142,11 @@ The Problem:</p>
 <div class=post-nav><a href=/posts/powershell_get_members_of_group/ class=prev rel=prev title="PowerShell Get Members Of Group"><i class="fas fa-angle-left fa-fw"></i>PowerShell Get Members Of Group</a>
 <a href=/posts/adding-email-property-in-ad/ class=next rel=next title="Adding E-Mail Property in AD">Adding E-Mail Property in AD<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
-</article></div>
+<div id=comments><div id=utterances></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
+</noscript></div></article></div>
 </main><footer class=footer>
-<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Jordan Benzing</a></span></div>
+<div class=footer-container><div class=footer-line>Powered by ☕ and 🍜</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">Jordan Benzing</a></span></div>
 </div>
 </footer></div>
 <div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
@@ -152,5 +154,5 @@ The Problem:</p>
 </a><a href=# id=view-comments class=fixed-button title="View Comments">
 <i class="fas fa-comment fa-fw"></i>
 </a>
-</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"title",label:"",lightTheme:"github-light",repo:"JordanTheITGuy/jordantheitguy.com-comments"}},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>
