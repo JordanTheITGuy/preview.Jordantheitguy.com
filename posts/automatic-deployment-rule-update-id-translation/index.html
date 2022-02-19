@@ -25,7 +25,7 @@
 <a href=/ title=JordanTheITGuy><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/internalLogo.png data-srcset="/images/internalLogo.png, /images/internalLogo.png 1.5x, /images/internalLogo.png 2x" data-sizes=auto alt=/images/internalLogo.png title=/images/internalLogo.png><span id=id-1 class=typeit></span></a>
 </div>
 <div class=menu>
-<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><a class=menu-item href=/stories/> Stories </a><a class=menu-item href=/about/> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
 <input type=text placeholder="Search titles or contents..." id=search-input-desktop>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
 <i class="fas fa-search fa-fw"></i>
@@ -68,7 +68,7 @@
 <a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
 Cancel
 </a>
-</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/stories/ title>Stories</a><a class=menu-item href=/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
 <i class="fas fa-adjust fa-fw"></i>
 </a></div>
 </div>
@@ -87,19 +87,15 @@ Cancel
 <div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author>Jordan Benzing</a></span>&nbsp;<span class=post-category>included in <a href=/categories/configmgr/><i class="far fa-folder fa-fw"></i>ConfigMgr</a></span></div>
 <div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-11-12>2021-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;543 words&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div>
-</div><div class="details toc" id=toc-static kept>
+</div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/images/blogPosts/ADR-UpdateIDTranslation/UpdateGatherData.png data-srcset="/images/blogPosts/ADR-UpdateIDTranslation/UpdateGatherData.png, /images/blogPosts/ADR-UpdateIDTranslation/UpdateGatherData.png 1.5x, /images/blogPosts/ADR-UpdateIDTranslation/UpdateGatherData.png 2x" data-sizes=auto alt=/images/blogPosts/ADR-UpdateIDTranslation/UpdateGatherData.png title="A speedy guide on how to convert Update ID's"></div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
 <span>Contents</span>
 <span><i class="details-icon fas fa-angle-right"></i></span>
 </div>
 <div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
 <ul>
-<li>
-<ul>
 <li><a href=#powershell-method>PowerShell Method</a></li>
 <li><a href=#sql-method>SQL Method</a></li>
-</ul>
-</li>
 <li><a href=#what-does-this-error-mean>What Does this Error Mean?</a></li>
 <li><a href=#getting-update-info-with-powershell>Getting Update Info with PowerShell</a></li>
 <li><a href=#getting-information-with-sql>Getting Information with SQL</a></li>
@@ -108,13 +104,13 @@ Cancel
 </div><div class=content id=content><p>If you’ve ever worked with Automatic Deployment Rules, at some point an update has failed to download. While you might be familiar with the RuleEngine.log file, did know the “updateID” is the “CI_ID”? If you’ve ever tried to find a software update via CI_ID, you know you’re going to one of two places, and neither of them is the console. Essentially, if you’re here you’re looking for an easy way to figure out what update caused this error:</p>
 <p><img class=lazyload src=/svg/loading.min.svg data-src=/images/blogPosts/ADR-UpdateIDTranslation/ADR-DownloadError.png data-srcset="/images/blogPosts/ADR-UpdateIDTranslation/ADR-DownloadError.png, /images/blogPosts/ADR-UpdateIDTranslation/ADR-DownloadError.png 1.5x, /images/blogPosts/ADR-UpdateIDTranslation/ADR-DownloadError.png 2x" data-sizes=auto alt=/images/blogPosts/ADR-UpdateIDTranslation/ADR-DownloadError.png title=ADR-UpdateError></p>
 <p>For those of you who already know what this is and just want the quick answer here you go:</p>
-<h3 id=powershell-method>PowerShell Method</h3>
+<h2 id=powershell-method>PowerShell Method</h2>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=ln>0</span><span class=c>#Enter the site code here</span>
 <span class=ln>1</span><span class=nv>$siteCode</span> <span class=p>=</span> <span class=s2>&#34;XYZ&#34;</span>
 <span class=ln>2</span><span class=c>#Enter the CI ID</span>
 <span class=ln>3</span><span class=nv>$ciID</span> <span class=p>=</span> <span class=s2>&#34;11111111&#34;</span>
 <span class=ln>4</span><span class=nb>Get-CimInstance</span> <span class=n>-ClassName</span> <span class=n>SMS_SoftwareUpdate</span> <span class=n>-Namespace</span> <span class=s2>&#34;root\SMS\site_</span><span class=p>$(</span><span class=nv>$SiteCode</span><span class=p>)</span><span class=s2>&#34;</span> <span class=n>-Filter</span> <span class=s2>&#34;CI_ID = </span><span class=p>$(</span><span class=nv>$ciID</span><span class=p>)</span><span class=s2>&#34;</span> <span class=p>|</span> <span class=nb>Select-Object</span> <span class=n>LocalizedDisplayName</span><span class=p>,</span><span class=n>DateCreated</span>
-</code></pre></div><h3 id=sql-method>SQL Method</h3>
+</code></pre></div><h2 id=sql-method>SQL Method</h2>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-tsql data-lang=tsql><span class=ln> 0</span><span class=c1>--Where XXXXX is the update ID from the logs with an error
 </span><span class=ln> 1</span><span class=c1></span><span class=w>
 </span><span class=ln> 2</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>v_UpdateInfo</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>CI_ID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;XXXXXX&#39;</span><span class=w>
@@ -183,5 +179,5 @@ Please enable JavaScript to view the comments powered by <a href=https://utteran
 </a><a href=# id=view-comments class=fixed-button title="View Comments">
 <i class="fas fa-comment fa-fw"></i>
 </a>
-</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"title",label:"",lightTheme:"github-light",repo:"JordanTheITGuy/jordantheitguy.com-comments"}},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:15},comment:{utterances:{darkTheme:"github-dark",issueTerm:"title",label:"",lightTheme:"github-light",repo:"JordanTheITGuy/jordantheitguy.com-comments"}},data:{"id-1":"JordanTheITGuy","id-2":"JordanTheITGuy"},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"},typeit:{cursorChar:'\u003cspan style="color: #BD93F9" \u003e|\u003c/span\u003e',cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:75}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>
